@@ -42,7 +42,7 @@ jobs:
           python-version: '3.10'
       - run: pip install -r requirements.txt
       - run: pip install pytest pytest-django pytest-cov
-      - run: python manage.py migrate
+      - run: venv/bin/python manage.py migrate
         env:
           SECRET_KEY: ci-secret-key
           DEBUG: False
