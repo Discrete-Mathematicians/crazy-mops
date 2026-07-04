@@ -1,18 +1,18 @@
 ## Отношения
 
-- **subscription to user**: многие ко многим
-- **pet to user**: многие ко многим
-- **post to pet**: многие ко многим
-- **comment to user**: многие ко многим
-- **comment_media to comment**: многие ко многим
-- **reaction to comment**: многие ко многим
-- **comment to post**: многие ко многим
-- **reaction to post**: многие ко многим
-- **post_tag to tag**: многие ко многим
-- **post_media to post**: многие ко многим
+- **subscription to user**: many_to_one
+- **pet to user**: many_to_one
+- **post to pet**: many_to_one
+- **comment to user**: many_to_one
+- **comment_media to comment**: many_to_one
+- **reaction to comment**: many_to_one
+- **comment to post**: many_to_one
+- **reaction to post**: many_to_one
+- **post_tag to tag**: many_to_one
+- **post_media to post**: many_to_one
 - **post_tag to post**: one_to_one
-- **subscription to pet**: многие ко многим
-- **comment to comment**: один ко многим
+- **subscription to pet**: many_to_one
+- **comment to comment**: one_to_one
 
 
 ## ER-Диаграма
@@ -31,7 +31,7 @@ erDiagram
 	post_media }o--|| post : references
 	post_tag ||--|| post : references
 	subscription }o--|| pet : references
-	comment ||--o{ comment : references
+	comment ||--|| comment : references
 
 	pet {
 		BIGSERIAL id
