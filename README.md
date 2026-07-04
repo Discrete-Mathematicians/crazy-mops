@@ -49,3 +49,10 @@
 Проект выполняется в эстетике "Неовеб 2000х" - ламповый, пиксельный дизайн с элементами старых форумов. Ироничный и ностальгический стиль располагает к неформальному общению, подчеркивает, что это пространство для души, а не для работы.
 
 ---
+
+![Status](https://img.shields.io/badge/Status-In%20Development-FF6B6B?style=for-the-badge)
+![Python](https://img.shields.io/badge/Python-3.10+-3776AB?style=for-the-badge&logo=python&logoColor=white)
+![Django](https://img.shields.io/badge/Django-4.2+-092E20?style=for-the-badge&logo=django&logoColor=white)
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-15-4169E1?style=for-the-badge&logo=postgresql&logoColor=white)
+![Bootstrap](https://img.shields.io/badge/Bootstrap-5-7952B3?style=for-the-badge&logo=bootstrap&logoColor=white)
+![Year](https://img.shields.io/badge/Year-2026-FFD93D?style=for-the-badge)
