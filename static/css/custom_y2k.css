@@ -1,0 +1,89 @@
+/*start; Стили для базового шаблона*/
+:root {
+    /* палитра из Figma */
+    --y2k-bg: #efe9fb;
+    --y2k-bg-page: #dcd2f2;
+    --y2k-bg-frame: #efe9fb;
+    --y2k-border: #8f76c4;
+    --y2k-accent-pink: #d4537e;
+    --y2k-accent-purple: #7a5fc0;
+    --y2k-panel-yellow: #fdf7d4;
+    --y2k-panel-pink: #fbe3ec;
+    --y2k-text: #2b2440;
+    --y2k-link: #378add;
+}
+
+/*start; шрифты + цвета*/
+body {
+    font-family: 'IBM Plex Sans', 'Segoe UI', Tahoma, sans-serif;
+}
+
+h1,
+h2,
+h3,
+footer,
+.nav-item,
+.navbar-brand,
+.panel-header {
+    font-family: 'Pixelify Sans', monospace;
+}
+
+.navbar-brand {
+    font-family: 'Pixelify Sans', monospace;
+    font-size: 3rem;
+}
+
+.nav-item {
+    font-size: 1.15rem;
+}
+
+.brand-word-1 {
+    color: var(--y2k-accent-pink);
+}
+
+.brand-word-2 {
+    color: var(--y2k-accent-purple);
+}
+
+/*end; шрифты + цвета*/
+
+body {
+    background: #dcd2f2;
+}
+
+.page-frame {
+    width: 100%;
+    max-width: 1024px;
+    margin: 12px auto;
+    /* центрирование + зазор до краёв окна */
+    padding: 0 12px;
+    border: 2px dotted var(--y2k-border);
+    background: var(--y2k-bg);
+}
+
+header {
+    border-bottom: 2px dashed var(--y2k-border);
+}
+
+footer {
+    border-top: 2px dashed var(--y2k-border);
+}
+
+@media (min-width: 992px) {
+    .navbar>.container-fluid {
+        align-items: stretch;
+    }
+
+    #mainNav {
+        display: flex;
+        align-items: stretch;
+    }
+
+    .navbar-nav {
+        align-items: center;
+        border-left: 2px dashed var(--y2k-border);
+        padding-left: 16px;
+    }
+}
+
+/*end: Стили для базового шаблона*/
