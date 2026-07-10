@@ -6,8 +6,7 @@ def profile_detail(request, pk):
     User = get_user_model()
     profile_user = get_object_or_404(User, pk=pk)
 
-    # pets = profile_user.pet_set.all()
-    pets = []
+    pets = profile_user.pets.all()
 
     can_manage = request.user.is_authenticated and (request.user == profile_user or request.user.is_staff)
 
