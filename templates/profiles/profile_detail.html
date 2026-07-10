@@ -15,13 +15,20 @@
                         <a href="{% url 'users:profile_edit' %}" class="btn-pixel">Редактировать</a>
                     {% endif %}
                     <h2>Питомцы</h2>
-                    {% if pets %}
+                    <div class="pet-list">
                         {% for pet in pets %}
-                            <p>{{ pet.name }}</p>
+                            {% include "includes/pet_card.html" with pet=pet only %}
+                        {% empty %}
+                            <p>Питомцев пока нет</p>
                         {% endfor %}
-                    {% else %}
-                        <p>Питомцев пока нет</p>
-                    {% endif %}
+                        {% if can_manage %}
+                            <a href="{% url 'pets:create' %}"
+                               class="pet-card pet-card--add text-decoration-none">
+                                <span class="pet-card-add-icon">+</span>
+                                <span class="pet-card-name">Добавить питомца</span>
+                            </a>
+                        {% endif %}
+                    </div>
                 </div>
             </div>
         </div>
