@@ -1,11 +1,14 @@
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
+
 from .models import User
 
 
 class SignUpForm(UserCreationForm):
+    """Регистрация: обязательны только login + password (password1/password2)."""
+
     class Meta(UserCreationForm.Meta):
         model = User
-        fields = ("username", "login", "email", "display_name")
+        fields = ("login",)
 
 
 class ProfileEditForm(UserChangeForm):
@@ -13,4 +16,4 @@ class ProfileEditForm(UserChangeForm):
 
     class Meta:
         model = User
-        fields = ("display_name", "avatar", "email")
+        fields = ("display_name", "first_name", "last_name", "email", "avatar")

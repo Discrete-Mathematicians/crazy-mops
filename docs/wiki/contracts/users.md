@@ -1,8 +1,16 @@
 # Контракты приложения `users`
 
-Приложение подключено как `path("users/", include("users.urls"))`, namespace — `users`.
-Модель: `users.User` (`AUTH_USER_MODEL`), наследует `AbstractUser`.
-Поля профиля: `login`, `display_name`, `avatar`, `account_type` (+ стандартные `username`, `email`, `password`).
+Приложение: `path("users/", include("users.urls"))`, namespace `users`.
+Модель: `users.User` (`AUTH_USER_MODEL`), наследует `AbstractBaseUser + PermissionsMixin`.
+Вход по полю **login** (`USERNAME_FIELD = "login"`), поля username НЕТ.
+
+Поведение по умолчанию (пока пользователь не изменил):
+- `display_name` = `login`
+- `avatar` пустой -> показывается дефолт из статики (см. `User.avatar_url`)
+
+Поля: login (уник., обязателен), password, display_name, first_name, last_name, email, avatar, account_type.
+
+Аватар: дефолтная картинка лежит в статике `static/users/img/default_avatar.png`. В шаблонах использовать `user.avatar_url` — он отдаёт загруженный аватар либо дефолт.
 
 ---
 
@@ -10,19 +18,17 @@
 - **URL:** /users/signup/
 - **View:** users.views.signup
 - **Шаблон:** templates/users/signup.html
-- **Форма:** users.forms.SignUpForm (поля: username, login, email, display_name + password1/password2)
-- **Доступ:** гость (аноним)
+- **Форма:** users.forms.SignUpForm (поля: login + password1/password2)
+- **Доступ:** гость
+- **Обязательные поля:** login, password (остальное заполняется автоматически / позже)
 
 ### Контекст
 | Переменная | Тип | Описание |
 | --- | --- | --- |
-| form | SignUpForm | форма регистрации, ошибки валидации в form.errors |
+| form | SignUpForm | форма регистрации |
 
-### Действия на странице
-- POST формы -> создаёт пользователя, логинит и редиректит на users:profile_edit
-
-### Ошибки
-- Невалидные данные -> повторный рендер страницы с form.errors (не редирект)
+### Действия
+- POST -> создаёт пользователя (display_name=login), логинит, редирект на users:profile_edit
 
 ---
 
@@ -30,31 +36,19 @@
 - **URL:** /users/login/
 - **View:** django.contrib.auth.views.LoginView
 - **Шаблон:** templates/users/login.html
-- **Форма:** AuthenticationForm (поля: username, password)
-- **Доступ:** гость (аноним)
+- **Форма:** AuthenticationForm (поле username в форме = наш login)
+- **Доступ:** гость
 
-### Контекст
-| Переменная | Тип | Описание |
-| --- | --- | --- |
-| form | AuthenticationForm | форма входа |
-| next | str | URL для редиректа после входа (из ?next=) |
-
-### Действия на странице
-- POST -> при успехе редирект на LOGIN_REDIRECT_URL (/) или на ?next=
-
-### Ошибки
-- Неверный логин/пароль -> рендер с ошибкой формы
+### Действия
+- POST -> при успехе редирект на LOGIN_REDIRECT_URL (/) или ?next=
 
 ---
 
 ## Выход
 - **URL:** /users/logout/
 - **View:** django.contrib.auth.views.LogoutView
-- **Шаблон:** нет (сразу редирект)
 - **Доступ:** залогиненный
-
-### Действия
-- Разлогинивает и редиректит на LOGOUT_REDIRECT_URL (users:login)
+- Разлогинивает, редирект на LOGOUT_REDIRECT_URL (users:login)
 
 ---
 
@@ -62,20 +56,16 @@
 - **URL:** /users/profile/edit/
 - **View:** users.views.profile_edit
 - **Шаблон:** templates/users/profile_edit.html
-- **Форма:** users.forms.ProfileEditForm (поля: display_name, avatar, email)
-- **Доступ:** login_required (гостя редиректит на LOGIN_URL = users:login)
+- **Форма:** users.forms.ProfileEditForm (display_name, first_name, last_name, email, avatar)
+- **Доступ:** login_required (гостя -> LOGIN_URL)
 
 ### Контекст
 | Переменная | Тип | Описание |
 | --- | --- | --- |
 | form | ProfileEditForm | предзаполнена данными request.user |
 
-### Действия на странице
-- POST (multipart/form-data — из-за avatar) -> сохраняет профиль, редирект на users:profile_edit
-
-### Ошибки
-- Невалидные данные -> рендер с form.errors
-- Гость -> редирект на страницу входа (обрабатывает login_required, не шаблон)
+### Действия
+- POST (multipart/form-data из-за avatar) -> сохраняет профиль, редирект на users:profile_edit
 
 ### Важно для шаблона
-- Тег <form> должен иметь enctype="multipart/form-data", иначе avatar не загрузится
+- <form> должен иметь enctype="multipart/form-data", иначе avatar не загрузится
