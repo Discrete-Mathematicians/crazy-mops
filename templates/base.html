@@ -40,7 +40,7 @@
                                 <li class="nav-item"><a class="nav-link" href="#">Лента</a></li>
                                 <li class="nav-item"><a class="nav-link" href="#">Поиск</a></li>
                                 {% if user.is_authenticated %}
-                                    <li class="nav-item"><a class="nav-link" href="#">Моя страница</a></li>
+                                    <li class="nav-item"><a class="nav-link" href="{% url 'profiles:detail' user.pk %}">Моя страница</a></li>
                                     <li class="nav-item">
                                         <form method="post" action="{% url 'users:logout' %}">
                                             {% csrf_token %}
