@@ -1,0 +1,12 @@
+{# Карточка питомца в списке. #}
+{# Использование: {% include "includes/pet_card.html" with pet=pet only %} #}
+<a href="{% url 'pets:detail' pet.pk %}"
+   class="pet-card text-decoration-none">
+    <img src="{{ pet.avatar.url }}"
+         alt="{{ pet.name }}"
+         class="pet-card-avatar"
+         width="96"
+         height="96">
+    <span class="pet-card-name">{{ pet.name }}</span>
+    <span class="pet-card-sex">{% if pet.sex == 1 %}♂{% elif pet.sex == 2 %}♀{% endif %}</span>
+</a>
