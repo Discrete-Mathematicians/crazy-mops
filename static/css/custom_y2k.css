@@ -1,21 +1,52 @@
-/*start; Стили для базового шаблона*/
+/* ============================================================
+   Слои: 1 токены -> 2 база -> 3 каркас -> 4 компонентый -> 5 страничный
+   ============================================================ */
+
+/* === ТОКЕНЫ === */
 :root {
+    /* пиксельная геометрия */
+    --step: 2px;
+    --border-w: 2px;
+    /* толщина рамки панелей */
+
     /* палитра из Figma */
     --y2k-bg: #efe9fb;
     --y2k-bg-page: #dcd2f2;
-    --y2k-bg-frame: #efe9fb;
     --y2k-border: #8f76c4;
+    --y2k-border-strong: #6B5BC7;
     --y2k-accent-pink: #d4537e;
     --y2k-accent-purple: #7a5fc0;
     --y2k-panel-yellow: #fdf7d4;
     --y2k-panel-pink: #fbe3ec;
+    --y2k-panel-paper: #fffdf6;
+
+    --y2k-panel-header-bg: #cbb6ee;
+    --y2k-panel-header-text: #3b2670;
+
+    --y2k-btn-yellow: #fce38b;
+    --y2k-btn-yellow-hover: #f7d55e;
+    --y2k-btn-yellow-border: #b08d2a;
+    --y2k-btn-yellow-text: #5c4405;
+
+    --y2k-btn-red: #f5dbdc;
+    --y2k-btn-red-hover: #f2c7d5;
+    --y2k-btn-red-border: #F5B3C9;
+    --y2k-btn-red-text: #5c4405;
+
+
     --y2k-text: #2b2440;
     --y2k-link: #378add;
+    --y2k-error: #a32d2d;
+    --y2k-caption: #6a55a3;
+    --y2k-placeholder: #9a8fbd;
+    --y2k-input-bg: #fff;
 }
 
-/*start; шрифты + цвета*/
+/* === БАЗА: шрифты, фон, ссылки === */
 body {
     font-family: 'IBM Plex Sans', 'Segoe UI', Tahoma, sans-serif;
+    background: var(--y2k-bg-page);
+    color: var(--y2k-text);
 }
 
 h1,
@@ -28,8 +59,25 @@ footer,
     font-family: 'Pixelify Sans', monospace;
 }
 
+/* === КАРКАС: рамка страницы, шапка, футер === */
+.page-frame {
+    width: 100%;
+    max-width: 1024px;
+    margin: 12px auto;
+    padding: 0 12px;
+    border: 2px dotted var(--y2k-border);
+    background: var(--y2k-bg);
+}
+
+header {
+    border-bottom: 2px dashed var(--y2k-border);
+}
+
+footer {
+    border-top: 2px dashed var(--y2k-border);
+}
+
 .navbar-brand {
-    font-family: 'Pixelify Sans', monospace;
     font-size: 3rem;
 }
 
@@ -43,30 +91,6 @@ footer,
 
 .brand-word-2 {
     color: var(--y2k-accent-purple);
-}
-
-/*end; шрифты + цвета*/
-
-body {
-    background: #dcd2f2;
-}
-
-.page-frame {
-    width: 100%;
-    max-width: 1024px;
-    margin: 12px auto;
-    /* центрирование + зазор до краёв окна */
-    padding: 0 12px;
-    border: 2px dotted var(--y2k-border);
-    background: var(--y2k-bg);
-}
-
-header {
-    border-bottom: 2px dashed var(--y2k-border);
-}
-
-footer {
-    border-top: 2px dashed var(--y2k-border);
 }
 
 @media (min-width: 992px) {
@@ -86,4 +110,159 @@ footer {
     }
 }
 
-/*end: Стили для базового шаблона*/
+/* === КОМПОНЕНТЫ === */
+
+/* --- Панель ---
+   два вида рамки одинаковая начинка (.panel-header / .panel-body)
+   .flat-panel - прямые углы, обычный border
+   .pixel-panel > .panel-frame - пиксельные углы через clip-path
+*/
+
+.flat-panel {
+    background: var(--panel-bg, var(--y2k-panel-paper));
+    border: var(--border-w) solid var(--y2k-border-strong);
+}
+
+.panel-frame {
+    background: var(--panel-bg, var(--y2k-panel-paper));
+    /* clip-path */
+}
+
+.panel--yellow {
+    --panel-bg: var(--y2k-panel-yellow);
+}
+
+.panel--pink {
+    --panel-bg: var(--y2k-panel-pink);
+}
+
+.panel-header {
+    background: var(--y2k-panel-header-bg);
+    color: var(--y2k-panel-header-text);
+    text-align: center;
+    padding: 6px 8px;
+    font-size: 1.3rem;
+    letter-spacing: 1px;
+    border-bottom: var(--border-w) solid var(--y2k-border-strong);
+}
+
+.panel-body {
+    padding: 14px 16px 16px;
+}
+
+/* --- поля форм --- */
+.panel-body input[type='text'],
+.panel-body input[type='password'],
+.panel-body input[type='email'],
+.panel-body textarea,
+.panel-body select {
+    display: block;
+    width: 100%;
+    padding: 6px 9px;
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 0.9rem;
+    color: var(--y2k-text);
+    background: var(--y2k-input-bg);
+    border: 1px solid var(--y2k-border);
+    border-radius: 0;
+    outline: none;
+}
+
+.panel-body input::placeholder,
+.panel-body textarea::placeholder {
+    color: var(--y2k-placeholder);
+}
+
+.panel-body input:focus,
+.panel-body textarea:focus,
+.panel-body select:focus {
+    border-color: var(--y2k-accent-pink);
+    box-shadow: 2px 2px 0 var(--y2k-accent-pink);
+}
+
+.panel-body .form-label {
+    font-family: 'Pixelify Sans', monospace;
+    font-size: 1.05rem;
+    color: var(--y2k-accent-purple);
+    margin-bottom: 4px;
+}
+
+/* ошибки валидации - под полем */
+.form-error {
+    margin: 4px 0 0 2px;
+    font-size: 0.8rem;
+    color: var(--y2k-error);
+}
+
+/* --- Кнопки --- */
+.btn-pixel {
+    font-family: 'Pixelify Sans', monospace;
+    font-size: 1.1rem;
+    letter-spacing: 1px;
+    color: var(--y2k-btn-yellow-text);
+    background: var(--y2k-btn-yellow);
+    border: 1px solid var(--y2k-btn-yellow-border);
+    border-radius: 0;
+    padding: 7px 18px;
+    cursor: pointer;
+}
+
+.btn-outline-secondary {
+    color: var(--y2k-btn-red-text);
+    background: var(--y2k-btn-red);
+    border: 1px solid var(--y2k-btn-red-border);
+
+}
+
+.btn-pixel:hover {
+    background: var(--y2k-btn-yellow-hover);
+}
+
+.btn-outline-secondary:hover {
+    background: var(--y2k-btn-red-hover);
+
+}
+
+.btn-pixel:active {
+    transform: translate(1px, 1px);
+}
+
+/* === СТРАНИЧНЫй === */
+
+/* --- Логин --- */
+.login-row {
+    padding: 50px 0 0 0;
+}
+
+.login-narrow {
+    max-width: 440px;
+    margin: 0 auto;
+}
+
+.login-alt {
+    font-size: 0.85rem;
+}
+
+.login-alt a {
+    color: var(--y2k-link);
+}
+
+.login-caption {
+    font-size: 0.75rem;
+    color: var(--y2k-caption);
+}
+
+/* --- Авторизация --- */
+.signup-row {
+    padding: 50px 0 0 0;
+}
+
+.signup {
+    max-width: 440px;
+    margin: 0 auto;
+}
+
+/* --- Изменение профиля --- */
+.edit-profile-row {
+    padding: 50px 0 0 0;
+}
