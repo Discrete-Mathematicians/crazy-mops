@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block title %}{{ profile_user.display_name }} — Сумасшедший мопс{% endblock title %}
+{% block content %}
+    <div class="row justify-content-center">
+        <div class="col-12 col-md-8 col-lg-6">
+            <div class="flat-panel">
+                <div class="panel-header">{{ profile_user.display_name }}</div>
+                <div class="panel-body">
+                    <img src="{{ profile_user.avatar_url }}"
+                         alt="Аватар"
+                         width="96"
+                         height="96">
+                    <p>{{ profile_user.info }}</p>
+                    {% if can_manage %}
+                        <a href="{% url 'users:profile_edit' %}" class="btn-pixel">Редактировать</a>
+                    {% endif %}
+                    <h2>Питомцы</h2>
+                    {% if pets %}
+                        {% for pet in pets %}
+                            <p>{{ pet.name }}</p>
+                        {% endfor %}
+                    {% else %}
+                        <p>Питомцев пока нет</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock content %}
