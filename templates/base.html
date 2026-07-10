@@ -56,20 +56,20 @@
                     </div>
                 </nav>
             </header>
-            <div class="container-fluid flex-grow-1">
-                <div class="row">
-                    <aside class="col-lg-2 d-none d-lg-block">
-                        {% block left_sidebar %}
-                        {% endblock left_sidebar %}
-                    </aside>
+            <div class="d-flex flex-column">
+                <div class="row" flex-grow-1>
+                    {% block left_sidebar %}
+                        <aside class="col-lg-2 d-none d-lg-block">
+                        </aside>
+                    {% endblock left_sidebar %}
                     <main class="col py-3">
                         {% block content %}
                         {% endblock content %}
                     </main>
-                    <aside class="col-lg-3 d-none d-lg-block">
-                        {% block right_sidebar %}
-                        {% endblock right_sidebar %}
-                    </aside>
+                    {% block right_sidebar %}
+                        <aside class="col-lg-2 d-none d-lg-block">
+                        </aside>
+                    {% endblock right_sidebar %}
                 </div>
             </div>
             <footer class="mt-auto py-3 text-center">
