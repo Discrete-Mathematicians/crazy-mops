@@ -6,26 +6,33 @@ from .models import User
 
 @admin.register(User)
 class CustomUserAdmin(UserAdmin):
+    ordering = ("login",)
     list_display = (
-        "username",
         "login",
         "display_name",
         "email",
         "account_type",
         "is_staff",
     )
-    search_fields = ("username", "login", "display_name", "email")
+    search_fields = ("login", "display_name", "email")
     list_filter = ("account_type", "is_staff", "is_active")
 
-    fieldsets = UserAdmin.fieldsets + (
+    fieldsets = (
+        (None, {"fields": ("login", "password")}),
         (
-            "Профиль crazy-mops",
-            {"fields": ("login", "display_name", "avatar", "account_type")},
+            "Профиль",
+            {"fields": ("display_name", "first_name", "last_name", "email", "avatar", "account_type")},
         ),
+        ("Права", {"fields": ("is_active", "is_staff", "is_superuser", "groups", "user_permissions")}),
+        ("Даты", {"fields": ("last_login", "date_joined")}),
     )
-    add_fieldsets = UserAdmin.add_fieldsets + (
+    readonly_fields = ("date_joined", "last_login")
+    add_fieldsets = (
         (
-            "Профиль crazy-mops",
-            {"fields": ("login", "display_name", "account_type")},
+            None,
+            {
+                "classes": ("wide",),
+                "fields": ("login", "password1", "password2"),
+            },
         ),
     )
