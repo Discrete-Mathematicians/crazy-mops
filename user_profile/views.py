@@ -5,7 +5,8 @@ def profile_detail(request, pk):
     User = get_user_model()
     profile_user = get_object_or_404(User, pk=pk)
     
-    pets = profile_user.pet_set.all()
+    #pets = profile_user.pet_set.all()
+    pets = []
     
     can_manage = (
         request.user.is_authenticated
@@ -17,5 +18,5 @@ def profile_detail(request, pk):
         'pets': pets,
         'can_manage': can_manage,
     }
-    return render(request, 'profile/profile_detail.html', context)
+    return render(request, 'profiles/profile_detail.html', context)
     
