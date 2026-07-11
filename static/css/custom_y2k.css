@@ -7,6 +7,7 @@
     /* пиксельная геометрия */
     --step: 2px;
     --border-w: 2px;
+
     /* толщина рамки панелей */
 
     /* палитра из Figma */
@@ -19,21 +20,16 @@
     --y2k-panel-yellow: #fdf7d4;
     --y2k-panel-pink: #fbe3ec;
     --y2k-panel-paper: #fffdf6;
-
     --y2k-panel-header-bg: #cbb6ee;
     --y2k-panel-header-text: #3b2670;
-
     --y2k-btn-yellow: #fce38b;
     --y2k-btn-yellow-hover: #f7d55e;
     --y2k-btn-yellow-border: #b08d2a;
     --y2k-btn-yellow-text: #5c4405;
-
     --y2k-btn-red: #f5dbdc;
     --y2k-btn-red-hover: #f2c7d5;
     --y2k-btn-red-border: #F5B3C9;
     --y2k-btn-red-text: #5c4405;
-
-
     --y2k-text: #2b2440;
     --y2k-link: #378add;
     --y2k-error: #a32d2d;
@@ -93,7 +89,7 @@ footer {
     color: var(--y2k-accent-purple);
 }
 
-@media (min-width: 992px) {
+@media (width >= 992px) {
     .navbar>.container-fluid {
         align-items: stretch;
     }
@@ -125,6 +121,7 @@ footer {
 
 .panel-frame {
     background: var(--panel-bg, var(--y2k-panel-paper));
+
     /* clip-path */
 }
 
@@ -231,7 +228,7 @@ footer {
 
 /* --- Логин --- */
 .login-row {
-    padding: 50px 0 0 0;
+    padding: 50px 0 0;
 }
 
 .login-narrow {
@@ -254,7 +251,7 @@ footer {
 
 /* --- Авторизация --- */
 .signup-row {
-    padding: 50px 0 0 0;
+    padding: 50px 0 0;
 }
 
 .signup {
@@ -264,5 +261,5 @@ footer {
 
 /* --- Изменение профиля --- */
 .edit-profile-row {
-    padding: 50px 0 0 0;
+    padding: 50px 0 0;
 }
