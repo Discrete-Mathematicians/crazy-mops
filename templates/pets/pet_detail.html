@@ -11,12 +11,30 @@
             <img src="{{ pet.avatar.url }}" alt="{{ pet.name }}" width="200">
         {% endif %}
         <dl>
-            <dt>Вид</dt><dd>{{ pet.get_pet_type_display }}</dd>
-            <dt>Порода</dt><dd>{{ pet.breed|default:"—" }}</dd>
-            <dt>Дата рождения</dt><dd>{{ pet.birthday|default:"—" }}</dd>
-            <dt>Пол</dt><dd>{{ pet.get_sex_display|default:"—" }}</dd>
-            <dt>Цвет глаз</dt><dd>{{ pet.eye_color|default:"—" }}</dd>
-            <dt>Окрас</dt><dd>{{ pet.coat_color|default:"—" }}</dd>
+            <dt>Вид</dt>
+            <dd>
+                {{ pet.get_pet_type_display }}
+            </dd>
+            <dt>Порода</dt>
+            <dd>
+                {{ pet.breed|default:"—" }}
+            </dd>
+            <dt>Дата рождения</dt>
+            <dd>
+                {{ pet.birthday|default:"—" }}
+            </dd>
+            <dt>Пол</dt>
+            <dd>
+                {{ pet.get_sex_display|default:"—" }}
+            </dd>
+            <dt>Цвет глаз</dt>
+            <dd>
+                {{ pet.eye_color|default:"—" }}
+            </dd>
+            <dt>Окрас</dt>
+            <dd>
+                {{ pet.coat_color|default:"—" }}
+            </dd>
         </dl>
         {% if can_manage %}
             <a href="{% url 'pets:edit' pet.pk %}">Редактировать</a>
