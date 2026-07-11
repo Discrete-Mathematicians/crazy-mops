@@ -1,9 +1,0 @@
-[flake8]
-max-line-length = 119
-exclude =
-    venv,
-    .venv,
-    __pycache__,
-    migrations,
-    .git,
-    docs

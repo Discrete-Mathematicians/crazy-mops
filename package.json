@@ -1,0 +1,31 @@
+{
+  "name": "crazy-mops",
+  "version": "1.0.0",
+  "description": "Внутренняя социальная сеть для общения вокруг домашних питомцев, поднятие настроения, укрепление командного духа.",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Discrete-Mathematicians/crazy-mops.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Discrete-Mathematicians/crazy-mops/issues"
+  },
+  "extends": "stylelint-config-standard",
+  "rules": {
+    "custom-property-pattern": null
+  },
+  "homepage": "https://github.com/Discrete-Mathematicians/crazy-mops#readme",
+  "devDependencies": {
+    "stylelint": "^17.14.0",
+    "stylelint-config-standard": "^40.0.0"
+  }
+}
