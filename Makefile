@@ -1,4 +1,4 @@
-.PHONY: help install lint format test test-cov run migrate check clean
+.PHONY: help venv install lint lint-py lint-front format format-py format-front test test-cov run migrate check clean
 
 PYTHON = python3
 VENV = venv
@@ -14,7 +14,7 @@ help:
 	@echo "  make migrate   - Применить миграции"
 	@echo "  make run       - Запустить сервер"
 	@echo "  make test      - Запустить тесты"
-	@echo "  make test-cov  - Запустить тесты с отчётом о покрытии (пока без блокировки)"
+	@echo "  make test-cov  - Запустить тесты с отчётом о покрытии (порог 70%)"
 	@echo "  make lint      - Проверить стиль"
 	@echo "  make format    - Исправить стиль"
 	@echo "  make check     - Линтеры и тесты"
@@ -29,28 +29,41 @@ install: venv
 	@echo "$(GREEN)Установка зависимостей...$(NC)"
 	$(VENV_BIN)/pip install -r requirements.txt
 	$(VENV_BIN)/pip install -r requirements-dev.txt
+	@command -v npm >/dev/null && npm ci || echo "$(RED)npm не найден - фронт-линтеры работать не будут$(NC)"
 	@echo "$(GREEN)Готово!$(NC)"
 
 migrate:
-	python manage.py migrate
+	$(VENV_BIN)/python manage.py migrate
 
 run:
-	python manage.py runserver
+	$(VENV_BIN)/python manage.py runserver
 
 test:
-	pytest || true
+	$(VENV_BIN)/pytest
 
 test-cov:
-	pytest --cov=. --cov-report=term || true
+	$(VENV_BIN)/pytest --cov=. --cov-report=term --cov-fail-under=70
 
-lint:
-	flake8 --max-line-length=119 --exclude=venv,__pycache__,migrations,.git,docs .
-	isort --check-only --profile=black --line-length=119 .
-	black --check --line-length=119 .
+lint: lint-py lint-front
 
-format:
-	isort --profile=black --line-length=119 .
-	black --line-length=119 .
+lint-py:
+	$(VENV_BIN)/flake8 .
+	$(VENV_BIN)/isort --check-only .
+	$(VENV_BIN)/black --check .
+
+lint-front:
+	$(VENV_BIN)/djlint templates/ --check
+	npx stylelint "static/css/*.css"
+
+format: format-py format-front
+
+format-front:
+	$(VENV_BIN)/djlint templates/ --reformat
+	npx stylelint "static/css/*.css" --fix
+
+format-py:
+	$(VENV_BIN)/isort .
+	$(VENV_BIN)/black .
 
 check: lint test
 
@@ -58,4 +71,4 @@ clean:
 	find . -type d -name "__pycache__" -exec rm -rf {} + 2>/dev/null || true
 	find . -type d -name ".pytest_cache" -exec rm -rf {} + 2>/dev/null || true
 	find . -type d -name "htmlcov" -exec rm -rf {} + 2>/dev/null || true
-
+	
