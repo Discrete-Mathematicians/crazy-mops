@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     "users",
     "pets",
     "user_profile",
+    "subscriptions",
 ]
 
 AUTH_USER_MODEL = "users.User"
