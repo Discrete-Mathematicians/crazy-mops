@@ -13,6 +13,8 @@
 | search_type | str | 'owners' или 'pets', невалидное значение в query - фоллбэк на 'owners' |
 | searched | bool | True, если в query был параметр q (отличает "не искал" от "искал, пусто") |
 | query_string | str | q и type без page - для ссылок пагинации |
+| is_paginated | bool | True, если результатов больше одной страницы |
+| page_obj | Page | стандартный Django Paginator page object |
 
 ### Действия на странице (если есть)
 - Переключатель типа -> GET /search/?type=owners или ?type=pets
