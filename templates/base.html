@@ -38,7 +38,7 @@
                         <div class="collapse navbar-collapse" id="mainNav">
                             <ul class="navbar-nav ms-auto">
                                 <li class="nav-item"><a class="nav-link" href="#">Лента</a></li>
-                                <li class="nav-item"><a class="nav-link" href="#">Поиск</a></li>
+                                <li class="nav-item"><a class="nav-link" href="{% url 'search:search' %}">Поиск</a></li>
                                 {% if user.is_authenticated %}
                                     <li class="nav-item"><a class="nav-link" href="{% url 'profiles:detail' user.pk %}">Моя страница</a></li>
                                     <li class="nav-item">

@@ -89,7 +89,7 @@ footer {
     color: var(--y2k-accent-purple);
 }
 
-@media (width >= 992px) {
+@media (width >=992px) {
     .navbar>.container-fluid {
         align-items: stretch;
     }
@@ -262,4 +262,54 @@ footer {
 /* --- Изменение профиля --- */
 .edit-profile-row {
     padding: 50px 0 0;
+}
+
+/* --- Поиск --- */
+.search-form {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    align-items: center;
+}
+
+.search-form input[type="text"] {
+    background: var(--y2k-input-bg);
+    border: 1px solid var(--y2k-border);
+    border-radius: 0;
+    padding: 6px 10px;
+    color: var(--y2k-text);
+}
+
+.search-form input[type="text"]::placeholder {
+    color: var(--y2k-placeholder);
+}
+
+.search-form__switch {
+    display: flex;
+    gap: 12px;
+    font-family: 'Pixelify Sans', sans-serif;
+}
+
+.search-results {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin-top: 16px;
+}
+
+.search-pagination {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+    margin-top: 16px;
+    font-family: 'Pixelify Sans', sans-serif;
+}
+
+.search-pagination a {
+    color: var(--y2k-link);
+}
+
+.search-empty {
+    color: var(--y2k-caption);
+    font-style: italic;
 }
