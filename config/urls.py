@@ -14,6 +14,7 @@ urlpatterns = [
     path("subscriptions/", include("subscriptions.urls")),
     path("posts/", include("posts.urls")),
     path("comments/", include("comments.urls")),
+    path("", include("feed.urls")),
 ]
 
 if settings.DEBUG:
