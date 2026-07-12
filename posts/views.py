@@ -1,11 +1,11 @@
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.shortcuts import get_object_or_404
 from django.urls import reverse
-from django.views.generic import CreateView, DeleteView, DetailView, UpdateView
+from django.views.generic import CreateView, DeleteView, DetailView, ListView, UpdateView
 
 from pets.models import Pet
 from posts.forms import PostForm
-from posts.models import Post
+from posts.models import Post, PostMedia
 
 
 class PostOwnerMixin(LoginRequiredMixin, UserPassesTestMixin):
@@ -17,7 +17,29 @@ class PostOwnerMixin(LoginRequiredMixin, UserPassesTestMixin):
         return user == post.pet.owner or user.is_staff
 
 
-class PostCreateView(LoginRequiredMixin, UserPassesTestMixin, CreateView):
+class PostMediaTagsMixin:
+    """Сохраняет теги и загруженные медиафайлы после сохранения поста."""
+
+    def save_related(self, form):
+        form.save_tags(self.object)
+
+        existing_count = self.object.media.count()
+        files = form.cleaned_data.get("media", [])
+        for order, uploaded_file in enumerate(files, start=existing_count):
+            media_type = (
+                PostMedia.MediaType.IMAGE
+                if (uploaded_file.content_type or "").startswith("image")
+                else PostMedia.MediaType.VIDEO
+            )
+            PostMedia.objects.create(
+                post=self.object,
+                media_url=uploaded_file,
+                media_type=media_type,
+                display_order=order,
+            )
+
+
+class PostCreateView(PostMediaTagsMixin, LoginRequiredMixin, UserPassesTestMixin, CreateView):
     model = Post
     form_class = PostForm
     template_name = "posts/post_form.html"
@@ -32,7 +54,9 @@ class PostCreateView(LoginRequiredMixin, UserPassesTestMixin, CreateView):
 
     def form_valid(self, form):
         form.instance.pet = self.get_pet()
-        return super().form_valid(form)
+        response = super().form_valid(form)
+        self.save_related(form)
+        return response
 
     def get_context_data(self, **kwargs):
         ctx = super().get_context_data(**kwargs)
@@ -52,10 +76,15 @@ class PostDetailView(DetailView):
         return ctx
 
 
-class PostUpdateView(PostOwnerMixin, UpdateView):
+class PostUpdateView(PostMediaTagsMixin, PostOwnerMixin, UpdateView):
     model = Post
     form_class = PostForm
     template_name = "posts/post_form.html"
+
+    def form_valid(self, form):
+        response = super().form_valid(form)
+        self.save_related(form)
+        return response
 
 
 class PostDeleteView(PostOwnerMixin, DeleteView):
@@ -64,3 +93,18 @@ class PostDeleteView(PostOwnerMixin, DeleteView):
 
     def get_success_url(self):
         return reverse("pets:detail", kwargs={"pk": self.object.pet.pk})
+
+
+class PostsByTagView(ListView):
+    model = Post
+    template_name = "posts/posts_by_tag.html"
+    context_object_name = "posts_page"
+    paginate_by = 10
+
+    def get_queryset(self):
+        return Post.objects.filter(tags__name=self.kwargs["tag"]).order_by("-created_at")
+
+    def get_context_data(self, **kwargs):
+        ctx = super().get_context_data(**kwargs)
+        ctx["tag_name"] = self.kwargs["tag"]
+        return ctx
