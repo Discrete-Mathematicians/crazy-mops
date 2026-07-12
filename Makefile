@@ -1,4 +1,4 @@
-.PHONY: help venv install lint lint-py lint-front format format-py format-front test test-cov run migrate check clean
+.PHONY: help venv install lint lint-py lint-front format format-py format-front test test-cov run migrate db-up db-down check clean
 
 PYTHON = python3
 VENV = venv
@@ -18,6 +18,8 @@ help:
 	@echo "  make lint      - Проверить стиль"
 	@echo "  make format    - Исправить стиль"
 	@echo "  make check     - Линтеры и тесты"
+	@echo "  make db-up     - Поднять БД"
+	@echo "  make db-down   - Остановить БД"
 
 venv:
 	@echo "$(GREEN)Создание виртуального окружения...$(NC)"
@@ -66,6 +68,12 @@ format-py:
 	$(VENV_BIN)/black .
 
 check: lint test
+
+db-up:
+	docker compose up -d
+
+db-down:
+	docker compose stop
 
 clean:
 	find . -type d -name "__pycache__" -exec rm -rf {} + 2>/dev/null || true
