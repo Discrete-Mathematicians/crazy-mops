@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     "pets",
     "user_profile",
     "subscriptions",
+    "posts",
 ]
 
 AUTH_USER_MODEL = "users.User"
@@ -122,7 +123,7 @@ PASSWORD_HASHERS = [
 # Internationalization
 # https://docs.djangoproject.com/en/4.1/topics/i18n/
 
-LANGUAGE_CODE = "en-us"
+LANGUAGE_CODE = "ru-ru"
 
 TIME_ZONE = "UTC"
 
