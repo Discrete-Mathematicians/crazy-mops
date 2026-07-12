@@ -21,7 +21,7 @@ class SearchView(ListView):
             return User.objects.none()
         if self.get_search_type() == "pets":
             return Pet.objects.filter(name__icontains=q)
-        return User.objects.filter(display_name__icontains=q)
+        return User.objects.filter(display_name__icontains=q).order_by("display_name")
 
     def get_context_data(self, **kwargs):
         ctx = super().get_context_data(**kwargs)
