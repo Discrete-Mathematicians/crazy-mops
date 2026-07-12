@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block content %}
+    <div class="pixel-panel">
+        <div class="panel-frame">
+            <div class="panel-header">Посты по тегу #{{ tag_name }}</div>
+            <div class="panel-body">
+                {% for post in posts_page %}
+                    {% include "includes/post_card.html" with post=post only %}
+                {% empty %}
+                    <p class="search-empty">Постов с таким тегом пока нет.</p>
+                {% endfor %}
+                {% if posts_page.has_other_pages %}
+                    <nav class="search-pagination">
+                        {% if posts_page.has_previous %}
+                            <a href="?page={{ posts_page.previous_page_number }}">← Назад</a>
+                        {% endif %}
+                        <span>{{ posts_page.number }} / {{ posts_page.paginator.num_pages }}</span>
+                        {% if posts_page.has_next %}
+                            <a href="?page={{ posts_page.next_page_number }}">Вперёд →</a>
+                        {% endif %}
+                    </nav>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock content %}
