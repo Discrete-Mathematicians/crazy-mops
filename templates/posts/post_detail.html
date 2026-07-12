@@ -17,7 +17,9 @@
                             {% if item.media_type == "image" %}
                                 <img src="{{ item.media_url.url }}"
                                      alt="{{ post.title }}"
-                                     class="post-detail__media-item">
+                                     class="post-detail__media-item"
+                                     width="256"
+                                     height="256">
                             {% else %}
                                 <video src="{{ item.media_url.url }}"
                                        controls
