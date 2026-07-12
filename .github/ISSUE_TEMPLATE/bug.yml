@@ -1,0 +1,28 @@
+name: Баг
+description: Ошибка в существующем функционале
+title: "bug(<app>): <суть>"
+labels: ["bug"]
+body:
+  - type: textarea
+    attributes:
+      label: Что происходит
+      description: Фактическое поведение + шаги воспроизведения
+      placeholder: |
+        1. Зайти как юзер A
+        2. Открыть ...
+        3. Наблюдаем: ...
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Что ожидалось
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Где найдено / последствия
+      placeholder: Через что найдено, на что влияет, ссылки на контракты/конвенции
+  - type: textarea
+    attributes:
+      label: Задачи
+      value: "- [ ] "
