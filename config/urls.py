@@ -13,7 +13,7 @@ urlpatterns = [
     path("search/", include("search.urls")),
     path("subscriptions/", include("subscriptions.urls")),
     path("posts/", include("posts.urls")),
-    path('', include('feed.urls')),
+    path("", include("feed.urls")),
 ]
 
 if settings.DEBUG:
