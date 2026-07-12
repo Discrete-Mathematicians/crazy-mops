@@ -5,10 +5,13 @@ from subscriptions.models import Subscription
 register = template.Library()
 
 
-@register.inclusion_tag("includes/subscription_button.html", takes_context=True)
-def subscription_button(context, pet):
-    """Кнопка Подписаться/Отписаться на карточке питомца."""
-    user = context["request"].user
-    can_subscribe = user.is_authenticated and pet.owner_id != user.id
+@register.inclusion_tag("includes/subscription_button.html")
+def subscription_button(pet, user):
+    """Кнопка подписки на питомца. Свой питомец или гость - кнопки нет."""
+    can_subscribe = user.is_authenticated and user != pet.owner
     is_subscribed = can_subscribe and Subscription.objects.filter(user=user, pet=pet).exists()
-    return {"pet": pet, "can_subscribe": can_subscribe, "is_subscribed": is_subscribed}
+    return {
+        "can_subscribe": can_subscribe,
+        "pet": pet,
+        "is_subscribed": is_subscribed,
+    }

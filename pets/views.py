@@ -1,4 +1,5 @@
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.core.paginator import Paginator
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, DeleteView, DetailView, UpdateView
 
@@ -15,11 +16,15 @@ class PetDetailView(DetailView):
     model = Pet
     template_name = "pets/pet_detail.html"
     context_object_name = "pet"
+    posts_per_page = 5
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         user = self.request.user
-        context["can_manage"] = user.is_authenticated and self.object.owner_id == user.id
+        context["can_manage"] = user.is_authenticated and (user == self.object.owner or user.is_staff)
+
+        paginator = Paginator(self.object.posts.all(), self.posts_per_page)
+        context["posts_page"] = paginator.get_page(self.request.GET.get("page"))
         return context
 
 

@@ -12,6 +12,7 @@ urlpatterns = [
     path("profile/", include("user_profile.urls")),
     path("search/", include("search.urls")),
     path("subscriptions/", include("subscriptions.urls")),
+    path("posts/", include("posts.urls")),
 ]
 
 if settings.DEBUG:

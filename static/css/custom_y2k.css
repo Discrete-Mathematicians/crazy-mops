@@ -313,3 +313,37 @@ footer {
     color: var(--y2k-caption);
     font-style: italic;
 }
+
+/* --- Посты --- */
+.post-card {
+    margin-bottom: 16px;
+}
+
+.post-card__title a {
+    color: var(--y2k-link);
+}
+
+.post-card__text {
+    margin: 8px 0;
+}
+
+.post-card__date,
+.post-detail__date {
+    color: var(--y2k-caption);
+    font-size: 0.85em;
+}
+
+.post-detail__actions {
+    display: flex;
+    gap: 12px;
+    margin-top: 16px;
+}
+
+.form-field {
+    margin-bottom: 12px;
+}
+
+.form-field label {
+    display: block;
+    margin-bottom: 4px;
+}
