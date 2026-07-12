@@ -13,6 +13,7 @@ urlpatterns = [
     path("search/", include("search.urls")),
     path("subscriptions/", include("subscriptions.urls")),
     path("posts/", include("posts.urls")),
+    path("comments/", include("comments.urls")),
 ]
 
 if settings.DEBUG:
