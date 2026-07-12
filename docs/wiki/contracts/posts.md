@@ -1,8 +1,8 @@
-# Контракты приложения `posts` (view → шаблон)
+# Контракты приложения `posts` (view -> шаблон)
 
 Namespace `posts`, подключено как `path("posts/", include("posts.urls"))`.
-Права: редактирование/удаление — владелец питомца или админ (capability,
-как can_manage в pets/profile). Создание — только к своему питомцу (или админ).
+Права: редактирование/удаление - владелец питомца или админ (capability,
+как can_manage в pets/profile). Создание - только к своему питомцу (или админ).
 
 ---
 
@@ -19,11 +19,11 @@ Namespace `posts`, подключено как `path("posts/", include("posts.ur
 | pet | Pet | питомец, к которому создаётся пост (для заголовка страницы) |
 
 ### Действия
-- POST → создаётся Post, pet проставляется из URL, редирект на posts:detail
+- POST -> создаётся Post, pet проставляется из URL, редирект на posts:detail
 
 ### Ошибки
-- Питомец pet_pk не найден → 404
-- Ошибки валидации → под полями
+- Питомец pet_pk не найден -> 404
+- Ошибки валидации -> под полями
 
 ---
 
@@ -36,14 +36,14 @@ Namespace `posts`, подключено как `path("posts/", include("posts.ur
 ### Контекст
 | Переменная | Тип | Описание |
 | --- | --- | --- |
-| post | Post | title, description, created_at, post.pet — для ссылки на питомца |
-| can_manage | bool | владелец питомца или админ — кнопки «Редактировать»/«Удалить» |
+| post | Post | title, description, created_at, post.pet - для ссылки на питомца |
+| can_manage | bool | владелец питомца или админ - кнопки «Редактировать»/«Удалить» |
 
-Будущее расширение (вне #37): контекст дополнится comments/reactions,
+Будущее расширение: контекст дополнится comments/reactions,
 когда появятся соответствующие приложения.
 
 ### Ошибки
-- Пост не найден → 404
+- Пост не найден -> 404
 
 ---
 
@@ -60,7 +60,7 @@ Namespace `posts`, подключено как `path("posts/", include("posts.ur
 - **View:** posts.views.PostDeleteView (DeleteView)
 - **Шаблон:** templates/posts/post_confirm_delete.html
 - **Доступ:** login_required + владелец питомца или админ (403)
-- POST → удаление, редирект на pets:detail питомца
+- POST -> удаление, редирект на pets:detail питомца
 
 ---
 
@@ -71,3 +71,20 @@ Namespace `posts`, подключено как `path("posts/", include("posts.ur
 | posts:detail | /posts/<pk>/ | PostDetailView |
 | posts:edit | /posts/<pk>/edit/ | PostUpdateView |
 | posts:delete | /posts/<pk>/delete/ | PostDeleteView |
+
+---
+
+## Партиалы
+
+| Партиал | Ожидает | Описание |
+| --- | --- | --- |
+| includes/post_card.html | post (Post) | карточка поста в списках (профиль питомца, лента, посты по тегу); превью текста, ссылки на пост и питомца |
+
+Вызов: `{% include "includes/post_card.html" with post=obj only %}`
+
+## Точки входа из других приложений
+
+- Кнопка «Создать пост» - на странице питомца (`pets/pet_detail.html`),
+  внутри блока `can_manage`, ведёт на `posts:create` с pk питомца.
+- История постов питомца - на странице питомца (`pets/pet_detail.html`),
+  секция «Посты»: `pet.posts.all` через партиал post_card.

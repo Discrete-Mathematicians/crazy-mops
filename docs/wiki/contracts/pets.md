@@ -41,6 +41,7 @@
 | --- | --- | --- |
 | pet | Pet | name, avatar, pet_type, breed, birthday, sex, eye_color, coat_color |
 | can_manage | bool | True только у владельца — показывать кнопки «Редактировать»/«Удалить» |
+| posts_page | Page | пагинатор истории постов питомца (5 на страницу, новые сверху); ?page= в query |
 
 ### Ошибки
 - Объект не найден → 404 (обрабатывает view, не шаблон)

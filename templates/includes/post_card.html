@@ -1,0 +1,17 @@
+{# Карточка поста в списке #}
+<div class="pixel-panel post-card">
+    <div class="panel-frame">
+        <div class="panel-header">
+            <a href="{% url 'pets:detail' post.pet.pk %}">{{ post.pet.name }}</a>
+        </div>
+        <div class="panel-body">
+            <h3 class="post-card__title">
+                <a href="{% url 'posts:detail' post.pk %}">{{ post.title }}</a>
+            </h3>
+            {% if post.description %}
+                <p class="post-card__text">{{ post.description|truncatewords:30 }}</p>
+            {% endif %}
+            <span class="post-card__date">{{ post.created_at|date:"d.m.Y H:i" }}</span>
+        </div>
+    </div>
+</div>
