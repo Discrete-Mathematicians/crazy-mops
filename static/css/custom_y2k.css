@@ -347,3 +347,29 @@ footer {
     display: block;
     margin-bottom: 4px;
 }
+
+/* --- post: медиа и теги --- */
+.post-detail__media {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 12px 0;
+}
+
+.post-detail__media-item {
+    max-width: 100%;
+    max-height: 400px;
+    border: 1px solid var(--y2k-border);
+}
+
+.post-detail__tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 8px 0;
+}
+
+.post-detail__tag {
+    color: var(--y2k-link);
+    font-family: 'Pixelify Sans', sans-serif;
+}
