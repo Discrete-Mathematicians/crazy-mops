@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block content %}
+    <div class="pixel-panel post-detail">
+        <div class="panel-frame">
+            <div class="panel-header">
+                <a href="{% url 'pets:detail' post.pet.pk %}">{{ post.pet.name }}</a>
+            </div>
+            <div class="panel-body">
+                <h1 class="post-detail__title">{{ post.title }}</h1>
+                <span class="post-detail__date">{{ post.created_at|date:"d.m.Y H:i" }}</span>
+                {% if post.description %}
+                    <p class="post-detail__text">{{ post.description|linebreaks }}</p>
+                {% endif %}
+                {# TODO(#39): медиа-галерея поста #}
+                {# TODO(#39): хештеги поста #}
+                {% if can_manage %}
+                    <div class="post-detail__actions">
+                        <a href="{% url 'posts:edit' post.pk %}" class="btn-pixel">Редактировать</a>
+                        <a href="{% url 'posts:delete' post.pk %}" class="btn-pixel">Удалить</a>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    {# TODO(comments) #}
+    {# TODO(reactions) #}
+{% endblock content %}

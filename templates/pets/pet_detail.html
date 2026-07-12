@@ -40,10 +40,30 @@
                 {{ pet.coat_color|default:"—" }}
             </dd>
         </dl>
-        {% subscription_button pet %}
+        <section class="pet-posts">
+            <h2>Посты</h2>
+            {% for post in posts_page %}
+                {% include "includes/post_card.html" with post=post only %}
+            {% empty %}
+                <p class="search-empty">Постов пока нет.</p>
+            {% endfor %}
+            {% if posts_page.has_other_pages %}
+                <nav class="search-pagination">
+                    {% if posts_page.has_previous %}
+                        <a href="?page={{ posts_page.previous_page_number }}">← Назад</a>
+                    {% endif %}
+                    <span>{{ posts_page.number }} / {{ posts_page.paginator.num_pages }}</span>
+                    {% if posts_page.has_next %}
+                        <a href="?page={{ posts_page.next_page_number }}">Вперёд →</a>
+                    {% endif %}
+                </nav>
+            {% endif %}
+        </section>
+        {% subscription_button pet user %}
         {% if can_manage %}
-            <a href="{% url 'pets:edit' pet.pk %}">Редактировать</a>
-            <a href="{% url 'pets:delete' pet.pk %}">Удалить</a>
+            <a href="{% url 'pets:edit' pet.pk %}" class="btn-pixel">Редактировать</a>
+            <a href="{% url 'pets:delete' pet.pk %}" class="btn-pixel">Удалить</a>
+            <a href="{% url 'posts:create' pet.pk %}" class="btn-pixel">Создать пост</a>
         {% endif %}
     </article>
 {% endblock content %}
