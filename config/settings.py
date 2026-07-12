@@ -10,7 +10,10 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
+import re
 from pathlib import Path
+
+from django.db.backends.signals import connection_created
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -41,7 +44,6 @@ INSTALLED_APPS = [
     "pets",
     "user_profile",
     "subscriptions",
-    "posts",
 ]
 
 AUTH_USER_MODEL = "users.User"
@@ -93,6 +95,40 @@ DATABASES = {
 }
 
 
+# SQLite: встроенные LIKE/LOWER/UPPER регистронезависимы только для ASCII,
+# из-за этого icontains/iexact не находят кириллицу в другом регистре.
+# Подменяем LIKE на реализацию через re.IGNORECASE (юникодо-совместимую).
+def _patch_sqlite_unicode_like(sender, connection, **kwargs):
+    if connection.vendor != "sqlite":
+        return
+
+    def sqlite_like(pattern, value, escape_char="\\"):
+        if value is None or pattern is None:
+            return None
+        regex_parts = []
+        i = 0
+        while i < len(pattern):
+            char = pattern[i]
+            if char == escape_char and i + 1 < len(pattern):
+                i += 1
+                regex_parts.append(re.escape(pattern[i]))
+            elif char == "%":
+                regex_parts.append(".*")
+            elif char == "_":
+                regex_parts.append(".")
+            else:
+                regex_parts.append(re.escape(char))
+            i += 1
+        regex = "^" + "".join(regex_parts) + "$"
+        return re.match(regex, value, re.IGNORECASE | re.UNICODE) is not None
+
+    connection.connection.create_function("LIKE", 2, lambda pattern, value: sqlite_like(pattern, value))
+    connection.connection.create_function("LIKE", 3, sqlite_like)
+
+
+connection_created.connect(_patch_sqlite_unicode_like)
+
+
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
 
@@ -123,7 +159,7 @@ PASSWORD_HASHERS = [
 # Internationalization
 # https://docs.djangoproject.com/en/4.1/topics/i18n/
 
-LANGUAGE_CODE = "ru-ru"
+LANGUAGE_CODE = "en-us"
 
 TIME_ZONE = "UTC"
 
