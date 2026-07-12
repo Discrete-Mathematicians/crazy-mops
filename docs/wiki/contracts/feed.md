@@ -38,6 +38,25 @@
 
 Вызов: `{% include "includes/post_card.html" with post=post only %}`
 
+## Виджет: дни рождения
+
+Партиал, встраивается в шаблон ленты (feed.html), не отдельная страница.
+
+### Контекст (передаётся из FeedView.get_context_data)
+| Переменная | Тип | Описание |
+| --- | --- | --- |
+| upcoming_birthdays | list[Pet] | питомцы из подписок юзера с заполненным birthday, отсортированы по ближайшей дате ДР (месяц/день, без учёта года рождения) |
+
+### Партиал
+| Партиал | Ожидает | Описание |
+| --- | --- | --- |
+| includes/birthday_widget.html | upcoming_birthdays (list[Pet]) | список: аватар, имя, дата ДР, ссылка на pets:detail |
+
+Вызов: `{% include "includes/birthday_widget.html" with upcoming_birthdays=upcoming_birthdays only %}`
+
+### Действия
+- Без подписок или без питомцев с birthday -> виджет показывает подсказку, не ошибка
+
 ## Точки входа из других приложений
 
 - Ссылка «Лента» в навбаре (`base.html`) -> feed:home.
