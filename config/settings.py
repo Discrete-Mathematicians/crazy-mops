@@ -53,7 +53,7 @@ AUTH_USER_MODEL = "users.User"
 
 # аутентификация: куда редиректить
 LOGIN_URL = "users:login"
-LOGIN_REDIRECT_URL = "/"
+LOGIN_REDIRECT_URL = "feed:home"
 LOGOUT_REDIRECT_URL = "users:login"
 
 MIDDLEWARE = [
