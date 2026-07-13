@@ -460,7 +460,7 @@ footer {
     flex: 1;
 }
 
-.comment-item__reply-form textarea {
+.comment-item__reply-textarea {
     width: 100%;
 }
 

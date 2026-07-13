@@ -11,7 +11,10 @@
                           action="{% url 'comments:reply' comment.pk %}"
                           class="comment-item__reply-form">
                         {% csrf_token %}
-                        <textarea name="description" placeholder="Ответить..." required></textarea>
+                        <textarea name="description"
+                                  placeholder="Ответить..."
+                                  required
+                                  class="comment-item__reply-textarea"></textarea>
                         <div class="comment-item__reply-controls">
                             <button type="submit" class="comment-item__link-btn">Ответить</button>
                             {% if can_delete %}
