@@ -53,6 +53,7 @@
                 {% if user.is_authenticated %}
                     <form method="post"
                           action="{% url 'comments:create' post.pk %}"
+                          enctype="multipart/form-data"
                           class="comment-form">
                         {% csrf_token %}
                         {% include "includes/form_fields.html" with form=comment_form %}
