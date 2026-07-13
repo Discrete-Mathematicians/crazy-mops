@@ -52,10 +52,10 @@
 
 ## Команда
 
-- Глущенко Дмитрий (minnesinger-sh) - frontend, шаблоны, view-логика (user_profile, search, posts, feed, reactions)
-- Алексей Зайцев (Yanotstatish) - users, pets
-- Бурындин Григорий (burindin235) - posts, subscriptions, comments
-- Лимарев Степан (Satimov727) - тесты
+- Глущенко Дмитрий (minnesinger-sh)
+- Алексей Зайцев (Yanotstatish)
+- Бурындин Григорий (burindin235)
+- Лимарев Степан (Satimov727)
 
 ## Развёртывание
 
@@ -64,9 +64,11 @@
    git clone https://github.com/Discrete-Mathematicians/crazy-mops.git
    cd crazy-mops
 ```
-2. Создать и активировать виртуальное окружение:
+2. Создать и активировать виртуальное окружение. Рекомендуется Python 3.12
+   (проект тестировался на нём) - на Python 3.13/3.14 обнаружена
+   несовместимость шаблонизатора Django 4.2):
 ```bash
-   python3 -m venv venv
+   python3.12 -m venv venv
    source venv/bin/activate
 ```
 3. Установить зависимости:
@@ -137,7 +139,7 @@ ER-диаграмма: `docs/ER_diagram.md`
 ---
 
 ![Status](https://img.shields.io/badge/Status-In%20Development-FF6B6B?style=for-the-badge)
-![Python](https://img.shields.io/badge/Python-3.10+-3776AB?style=for-the-badge&logo=python&logoColor=white)
+![Python](https://img.shields.io/badge/Python-3.10--3.12-3776AB?style=for-the-badge&logo=python&logoColor=white)
 ![Django](https://img.shields.io/badge/Django-4.2+-092E20?style=for-the-badge&logo=django&logoColor=white)
 ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-15-4169E1?style=for-the-badge&logo=postgresql&logoColor=white)
 ![Bootstrap](https://img.shields.io/badge/Bootstrap-5-7952B3?style=for-the-badge&logo=bootstrap&logoColor=white)
