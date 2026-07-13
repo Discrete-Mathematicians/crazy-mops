@@ -1,0 +1,19 @@
+<div class="flat-panel rating-widget">
+    <div class="panel-header">Рейтинг недели</div>
+    <div class="panel-body">
+        {% for pet in pet_rating %}
+            <div class="rating-widget__item">
+                <span class="rating-widget__place">{{ forloop.counter }}</span>
+                <img src="{{ pet.avatar.url }}"
+                     alt="{{ pet.name }}"
+                     class="rating-widget__avatar"
+                     width="32"
+                     height="32">
+                <a href="{% url 'pets:detail' pet.pk %}">{{ pet.name }}</a>
+                <span class="rating-widget__score">{{ pet.rating }}</span>
+            </div>
+        {% empty %}
+            <p>За неделю пока тихо - подпишитесь на питомцев и оставьте реакцию!</p>
+        {% endfor %}
+    </div>
+</div>

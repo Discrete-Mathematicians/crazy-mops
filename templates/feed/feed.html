@@ -1,9 +1,13 @@
 {% extends "base.html" %}
+{% block left_sidebar %}
+    <aside class="col-lg-2 d-none d-lg-block">
+        {% include "includes/rating_widget.html" with pet_rating=pet_rating only %}
+    </aside>
+{% endblock left_sidebar %}
 {% block content %}
     {% for post in posts %}
         {% include "includes/post_card.html" with post=post only %}
     {% empty %}
-        {# пустая лента - валидное состояние, не ошибка #}
         <div class="flat-panel">
             <div class="panel-body">
                 <p>Лента пуста. Подпишитесь на питомцев - и здесь появятся их посты.</p>
