@@ -1,7 +1,7 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import ListView
 
-from feed.services import get_upcoming_birthdays, sort_by_nearest_birthday
+from feed.services import get_upcoming_birthdays, sort_by_nearest_birthday, get_pet_rating
 from posts.models import Post
 
 
@@ -21,4 +21,5 @@ class FeedView(LoginRequiredMixin, ListView):
         context = super().get_context_data(**kwargs)
         pets = get_upcoming_birthdays(self.request.user)
         context["upcoming_birthdays"] = sort_by_nearest_birthday(pets)
+        context['pet_rating'] = get_pet_rating()
         return context
