@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     "user_profile",
     "subscriptions",
     "posts",
+    "comments",
 ]
 
 AUTH_USER_MODEL = "users.User"

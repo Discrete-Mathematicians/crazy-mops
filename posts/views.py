@@ -3,6 +3,7 @@ from django.shortcuts import get_object_or_404
 from django.urls import reverse
 from django.views.generic import CreateView, DeleteView, DetailView, ListView, UpdateView
 
+from comments.forms import CommentForm
 from pets.models import Pet
 from posts.forms import PostForm
 from posts.models import Post, PostMedia
@@ -73,6 +74,8 @@ class PostDetailView(DetailView):
         ctx = super().get_context_data(**kwargs)
         user = self.request.user
         ctx["can_manage"] = user.is_authenticated and (user == self.object.pet.owner or user.is_staff)
+        ctx["comments"] = self.object.comments.filter(reply_comment__isnull=True).select_related("user")
+        ctx["comment_form"] = CommentForm()
         return ctx
 
 
