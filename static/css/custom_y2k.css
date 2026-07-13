@@ -604,3 +604,44 @@ footer {
     font-size: 0.8rem;
     color: var(--y2k-caption);
 }
+
+/* --- Виджет рейтинга --- */
+.rating-widget__item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid var(--y2k-border);
+}
+
+.rating-widget__item:last-child {
+    border-bottom: none;
+}
+
+.rating-widget__place {
+    font-family: 'Pixelify Sans', sans-serif;
+    color: var(--y2k-accent-purple);
+    min-width: 1.2rem;
+}
+
+.rating-widget__avatar {
+    width: 32px;
+    height: 32px;
+    object-fit: cover;
+    border: 1px solid var(--y2k-border);
+}
+
+.rating-widget__item a {
+    color: var(--y2k-link);
+    text-decoration: none;
+    flex: 1;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.rating-widget__score {
+    font-family: 'Pixelify Sans', sans-serif;
+    color: var(--y2k-caption);
+}
