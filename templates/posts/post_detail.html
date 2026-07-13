@@ -68,5 +68,6 @@
             </div>
         </div>
     </div>
-    {# TODO(reactions) #}
+    {% load reaction_tags %}
+    {% reaction_widget user post=post %}
 {% endblock content %}

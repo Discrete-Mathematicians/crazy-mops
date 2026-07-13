@@ -16,6 +16,12 @@ class Reaction(models.Model):
         (LAUGH, "смех"),
         (WOW, "вау"),
     ]
+    REACTION_EMOJI = {
+        LIKE: "👍",
+        HEART: "❤️",
+        LAUGH: "😂",
+        WOW: "😮",
+    }
 
     post = models.ForeignKey(
         Post,

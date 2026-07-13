@@ -1,4 +1,5 @@
 {% load comment_tags %}
+{% load reaction_tags %}
 <div class="pixel-panel comment-item">
     <div class="panel-frame">
         <div class="panel-body">
@@ -6,6 +7,7 @@
             <span class="comment-item__date">{{ comment.created_at|date:"d.m.Y H:i" }}</span>
             <p class="comment-item__text">{{ comment.description|linebreaks }}</p>
             {% include "includes/comment_media.html" with comment=comment only %}
+            {% reaction_widget user comment=comment %}
             <div class="comment-item__actions">
                 {% if user.is_authenticated %}
                     <form id="reply-form-{{ comment.pk }}"

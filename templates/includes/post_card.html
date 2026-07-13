@@ -12,6 +12,7 @@
                 <p class="post-card__text">{{ post.description|truncatewords:30 }}</p>
             {% endif %}
             <span class="post-card__date">{{ post.created_at|date:"d.m.Y H:i" }}</span>
+            {% load reaction_tags %}
         </div>
     </div>
 </div>

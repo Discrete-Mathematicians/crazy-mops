@@ -1,0 +1,22 @@
+<div class="reaction-widget">
+    {% for reaction in reactions %}
+        {% if user.is_authenticated %}
+            <form method="post" action="{{ action_url }}" class="reaction-widget__form">
+                {% csrf_token %}
+                <input type="hidden" name="reaction_type" value="{{ reaction.code }}">
+                <button type="submit"
+                        class="reaction-widget__btn{% if reaction.is_active %} reaction-widget__btn--active{% endif %}"
+                        title="{{ reaction.label }}">
+                    {{ reaction.emoji }}
+                    {% if reaction.count %}<span class="reaction-widget__count">{{ reaction.count }}</span>{% endif %}
+                </button>
+            </form>
+        {% else %}
+            <span class="reaction-widget__btn reaction-widget__btn--readonly"
+                  title="{{ reaction.label }}">
+                {{ reaction.emoji }}
+                {% if reaction.count %}<span class="reaction-widget__count">{{ reaction.count }}</span>{% endif %}
+            </span>
+        {% endif %}
+    {% endfor %}
+</div>
