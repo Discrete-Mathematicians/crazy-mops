@@ -23,3 +23,8 @@
         </nav>
     {% endif %}
 {% endblock content %}
+{% block right_sidebar %}
+    <aside class="col-lg-2 d-none d-lg-block">
+        {% include "includes/birthday_widget.html" with upcoming_birthdays=upcoming_birthdays only %}
+    </aside>
+{% endblock right_sidebar %}

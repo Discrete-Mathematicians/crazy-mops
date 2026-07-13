@@ -317,6 +317,7 @@ footer {
 /* --- Посты --- */
 .post-card {
     margin-bottom: 16px;
+    width: 600px;
 }
 
 .post-card__title a {
@@ -403,5 +404,42 @@ footer {
 
 .feed-pagination span {
     color: var(--y2k-caption);
+    white-space: nowrap;
+}
+
+/* --- Виджет календаря дней рождения --- */
+.birthday-widget__item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid var(--y2k-border);
+}
+
+.birthday-widget__item:last-child {
+    border-bottom: none;
+}
+
+.birthday-widget__avatar {
+    width: 32px;
+    height: 32px;
+    object-fit: cover;
+    border: 1px solid var(--y2k-border);
+    image-rendering: pixelated;
+}
+
+.birthday-widget__item a {
+    color: var(--y2k-link);
+    text-decoration: none;
+    flex: 1;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.birthday-widget__item span {
+    color: var(--y2k-caption);
+    font-size: 0.85rem;
     white-space: nowrap;
 }
