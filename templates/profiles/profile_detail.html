@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block title %}{{ profile_user.display_name }} — Сумасшедший мопс{% endblock title %}
+{% block content %}
+    <div class="row justify-content-center">
+        <div class="col-12 col-md-8 col-lg-6">
+            <div class="flat-panel">
+                <div class="panel-header">{{ profile_user.display_name }}</div>
+                <div class="panel-body">
+                    <img src="{{ profile_user.avatar_url }}"
+                         alt="Аватар"
+                         width="96"
+                         height="96">
+                    <p>{{ profile_user.info }}</p>
+                    {% if can_manage %}
+                        <a href="{% url 'users:profile_edit' %}" class="btn-pixel">Редактировать</a>
+                    {% endif %}
+                    <h2>Питомцы</h2>
+                    <div class="pet-list">
+                        {% for pet in pets %}
+                            {% include "includes/pet_card.html" with pet=pet only %}
+                        {% empty %}
+                            <p>Питомцев пока нет</p>
+                        {% endfor %}
+                        {% if can_manage %}
+                            <a href="{% url 'pets:create' %}"
+                               class="pet-card pet-card--add text-decoration-none">
+                                <span class="pet-card-add-icon">+</span>
+                                <span class="pet-card-name">Добавить питомца</span>
+                            </a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock content %}

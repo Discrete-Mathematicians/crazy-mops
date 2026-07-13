@@ -1,0 +1,18 @@
+{% if comment.media.all %}
+    <div class="comment-item__media">
+        {% for media in comment.media.all %}
+            {% if media.media_type == 'image' %}
+                <img src="{{ media.media_url.url }}"
+                     alt=""
+                     class="comment-item__media-item"
+                     width="96"
+                     height="96">
+            {% else %}
+                <video src="{{ media.media_url.url }}"
+                       controls
+                       class="comment-item__media-item">
+                </video>
+            {% endif %}
+        {% endfor %}
+    </div>
+{% endif %}

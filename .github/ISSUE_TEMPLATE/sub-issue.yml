@@ -1,0 +1,24 @@
+name: Sub-issue (задача)
+description: 1 issue = 1 branch = 1 PR
+title: "<app>: <суть задачи>"
+body:
+  - type: textarea
+    attributes:
+      label: Задачи
+      value: |
+        - [ ] 
+        - [ ] Контракт view -> шаблон в docs/wiki/contracts/<app>.md (если появляется view)
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Критерии приёмки
+      placeholder: Проверяемые условия, по которым PR принимается
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Зависимости
+      placeholder: |
+        - <app>: модель X (#NN)
+        - Контракт из #NN

@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block content %}
+    <div class="pixel-panel post-form-panel">
+        <div class="panel-frame">
+            <div class="panel-header">
+                {% if form.instance.pk %}
+                    Редактировать пост
+                {% else %}
+                    Новый пост — {{ pet.name }}
+                {% endif %}
+            </div>
+            <div class="panel-body">
+                <form method="post" enctype="multipart/form-data" novalidate>
+                    {% csrf_token %}
+                    {% if form.non_field_errors %}
+                        <div class="form-error">{{ form.non_field_errors }}</div>
+                    {% endif %}
+                    {% for field in form %}
+                        <div class="form-field">
+                            <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                            {{ field }}
+                            {% if field.errors %}
+                                <div class="form-error">{{ field.errors }}</div>
+                            {% endif %}
+                        </div>
+                    {% endfor %}
+                    <button type="submit" class="btn-pixel">{% if form.instance.pk %}Сохранить{% else %}Опубликовать{% endif %}</button>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock content %}

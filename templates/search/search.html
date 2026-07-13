@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+    <div class="pixel-panel search-panel">
+        <div class="panel-frame">
+            <div class="panel-header">ПОИСК</div>
+            <div class="panel-body">
+                <form method="get" action="{% url 'search:search' %}" class="search-form">
+                    <input type="text" name="q" value="{{ q }}" placeholder="Введите имя...">
+                    <div class="search-form__switch">
+                        <label>
+                            <input type="radio"
+                                   name="type"
+                                   value="owners"
+                                   {% if search_type == 'owners' %}checked{% endif %}>
+                            Владельцы
+                        </label>
+                        <label>
+                            <input type="radio"
+                                   name="type"
+                                   value="pets"
+                                   {% if search_type == 'pets' %}checked{% endif %}>
+                            Питомцы
+                        </label>
+                    </div>
+                    <button type="submit" class="btn-pixel">Искать</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    {% if searched %}
+        {% if results %}
+            <div class="search-results">
+                {% for obj in results %}
+                    {% if search_type == 'pets' %}
+                        {% include "includes/pet_card.html" with pet=obj only %}
+                    {% else %}
+                        {% include "includes/user_card.html" with user=obj only %}
+                    {% endif %}
+                {% endfor %}
+            </div>
+            {% if is_paginated %}
+                <nav class="search-pagination">
+                    {% if page_obj.has_previous %}
+                        <a href="?page={{ page_obj.previous_page_number }}&{{ query_string }}"><- Назад</a>
+                    {% endif %}
+                    <span>{{ page_obj.number }} / {{ page_obj.paginator.num_pages }}</span>
+                    {% if page_obj.has_next %}
+                        <a href="?page={{ page_obj.next_page_number }}&{{ query_string }}">Вперёд -></a>
+                    {% endif %}
+                </nav>
+            {% endif %}
+        {% else %}
+            <p class="search-empty">Ничего не найдено.</p>
+        {% endif %}
+    {% endif %}
+{% endblock content %}

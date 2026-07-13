@@ -1,0 +1,15 @@
+{# Карточка владельца в списке #}
+<div class="pixel-panel search-card">
+    <div class="panel-frame">
+        <div class="panel-body">
+            <a href="{% url 'profiles:detail' user.pk %}">
+                <img src="{{ user.avatar_url }}"
+                     alt="{{ user.display_name }}"
+                     class="search-card__avatar"
+                     width="96"
+                     height="96">
+                <span>{{ user.display_name }}</span>
+            </a>
+        </div>
+    </div>
+</div>

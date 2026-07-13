@@ -1,0 +1,18 @@
+<div class="flat-panel birthday-widget">
+    <div class="panel-header">Дни рождения</div>
+    <div class="panel-body">
+        {% for pet in upcoming_birthdays %}
+            <div class="birthday-widget__item">
+                <img src="{{ pet.avatar.url }}"
+                     alt="{{ pet.name }}"
+                     class="birthday-widget__avatar"
+                     width="96"
+                     height="96">
+                <a href="{% url 'pets:detail' pet.pk %}">{{ pet.name }}</a>
+                <span>{{ pet.birthday|date:"d.m" }}</span>
+            </div>
+        {% empty %}
+            <p>Подпишитесь на питомцев, чтобы видеть их дни рождения</p>
+        {% endfor %}
+    </div>
+</div>

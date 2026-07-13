@@ -1,0 +1,26 @@
+name: Задача (приложение)
+description: Родительский issue на Django-приложение
+title: "Задача: Приложение <имя>"
+body:
+  - type: textarea
+    attributes:
+      label: Описание
+      description: Что за приложение, доменное или служебное, что читает/создаёт
+      placeholder: |
+        Служебное приложение - своей модели нет, читает X и Y.
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Sub-issues
+      description: Разбивка на задачи
+      value: |
+        - [ ] <app>: модель, вьюхи
+        - [ ] <app>: шаблоны
+        - [ ] <app>: тесты
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Примечания
+      description: Что сознательно не входит и почему

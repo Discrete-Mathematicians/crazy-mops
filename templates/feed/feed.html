@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% block left_sidebar %}
+    <aside class="col-lg-2 d-none d-lg-block">
+        {% include "includes/rating_widget.html" with pet_rating=pet_rating only %}
+    </aside>
+{% endblock left_sidebar %}
+{% block content %}
+    {% for post in posts %}
+        {% include "includes/post_card.html" with post=post only %}
+    {% empty %}
+        <div class="flat-panel">
+            <div class="panel-body">
+                <p>Лента пуста. Подпишитесь на питомцев - и здесь появятся их посты.</p>
+                <a href="{% url 'search:search' %}">Найти питомцев</a>
+            </div>
+        </div>
+    {% endfor %}
+    {% if is_paginated %}
+        <nav class="feed-pagination">
+            {% if page_obj.has_previous %}
+                <a href="?page={{ page_obj.previous_page_number }}"><- Назад</a>
+            {% endif %}
+            <span>{{ page_obj.number }} / {{ page_obj.paginator.num_pages }}</span>
+            {% if page_obj.has_next %}
+                <a href="?page={{ page_obj.next_page_number }}">Вперёд -></a>
+            {% endif %}
+        </nav>
+    {% endif %}
+{% endblock content %}
+{% block right_sidebar %}
+    <aside class="col-lg-2 d-none d-lg-block">
+        {% include "includes/birthday_widget.html" with upcoming_birthdays=upcoming_birthdays only %}
+    </aside>
+{% endblock right_sidebar %}
