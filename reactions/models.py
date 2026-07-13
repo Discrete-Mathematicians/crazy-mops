@@ -11,16 +11,16 @@ class Reaction(models.Model):
     LAUGH = 2
     WOW = 3
     REACTION_CHOICES = [
-        (LIKE, 'лайк'),
-        (HEART, 'сердце'),
-        (LAUGH, 'смех'),
-        (WOW, 'вау'),
+        (LIKE, "лайк"),
+        (HEART, "сердце"),
+        (LAUGH, "смех"),
+        (WOW, "вау"),
     ]
     REACTION_EMOJI = {
-        LIKE: '👍',
-        HEART: '❤️',
-        LAUGH: '😂',
-        WOW: '😮',
+        LIKE: "👍",
+        HEART: "❤️",
+        LAUGH: "😂",
+        WOW: "😮",
     }
 
     post = models.ForeignKey(
@@ -45,7 +45,7 @@ class Reaction(models.Model):
         related_name="reactions",
         verbose_name="автор",
     )
-    reaction_type = models.SmallIntegerField('тип реакции', choices=REACTION_CHOICES)
+    reaction_type = models.SmallIntegerField("тип реакции", choices=REACTION_CHOICES)
     created_at = models.DateTimeField("создана", auto_now_add=True)
 
     class Meta:
