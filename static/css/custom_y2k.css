@@ -447,25 +447,30 @@ footer {
 /* --- Дерево комментариев --- */
 .comment-item__actions {
     display: flex;
-    align-items: flex-start;
-    gap: 0.75rem;
-    margin-top: 0.5rem;
+    flex-direction: column;
+    gap: 0.35rem;
 }
 
 .comment-item__reply-form {
     display: flex;
     flex-direction: column;
-    align-items: flex-end;
-    gap: 0.25rem;
-    flex: 1;
+    gap: 0.35rem;
 }
 
-.comment-item__reply-textarea {
+.comment-item__reply-textarea,
+.comment-item__reply-media-input {
     width: 100%;
 }
 
 .comment-item__delete-form {
-    flex-shrink: 0;
+    display: none;
+}
+
+.comment-item__reply-controls {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    justify-content: flex-end;
 }
 
 .comment-item__author {
@@ -509,4 +514,43 @@ footer {
 
 .comment-item__replies {
     margin-left: 1rem;
+}
+
+/*--- comment media ---*/
+.comment-form input[type="file"],
+.comment-item__reply-media-input {
+    font-family: 'IBM Plex Sans', sans-serif;
+    color: var(--y2k-text);
+    margin: 0.5rem 0;
+}
+
+.comment-form input[type="file"]::file-selector-button,
+.comment-item__reply-media-input::file-selector-button {
+    font-family: 'Pixelify Sans', sans-serif;
+    background: var(--y2k-panel-yellow, #f5e6a8);
+    border: 1px solid var(--y2k-border);
+    border-radius: 0;
+    padding: 0.25rem 0.75rem;
+    color: var(--y2k-text);
+    cursor: pointer;
+    margin-right: 0.5rem;
+}
+
+.comment-form input[type="file"]::file-selector-button:hover,
+.comment-item__reply-media-input::file-selector-button:hover {
+    background: var(--y2k-btn-yellow-hover, var(--y2k-panel-yellow));
+}
+
+.comment-item__media {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin: 0.5rem 0;
+}
+
+.comment-item__media-item {
+    max-width: 160px;
+    max-height: 160px;
+    object-fit: cover;
+    border: 1px solid var(--y2k-border);
 }
