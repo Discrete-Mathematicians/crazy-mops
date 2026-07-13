@@ -9,7 +9,7 @@ class MultipleFileInput(forms.ClearableFileInput):
 
 class MultipleFileField(forms.FileField):
     def __init__(self, *args, **kwargs):
-        kwargs.setdefault('widget', MultipleFileInput())
+        kwargs.setdefault("widget", MultipleFileInput())
         super().__init__(*args, **kwargs)
 
     def clean(self, data, initial=None):
@@ -24,10 +24,10 @@ class CommentForm(forms.ModelForm):
 
     class Meta:
         model = Comment
-        fields = ('description',)
+        fields = ("description",)
 
     def clean_description(self):
-        description = self.cleaned_data['description'].strip()
+        description = self.cleaned_data["description"].strip()
         if not description:
-            raise forms.ValidationError('Комментарий не может быть пустым.')
+            raise forms.ValidationError("Комментарий не может быть пустым.")
         return description

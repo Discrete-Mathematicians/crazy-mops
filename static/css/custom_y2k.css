@@ -516,7 +516,7 @@ footer {
     margin-left: 1rem;
 }
 
-/*--- comment media ---*/
+/* --- comment media --- */
 .comment-form input[type="file"],
 .comment-item__reply-media-input {
     font-family: 'IBM Plex Sans', sans-serif;
