@@ -554,3 +554,53 @@ footer {
     object-fit: cover;
     border: 1px solid var(--y2k-border);
 }
+
+/* --- Виджет реакций --- */
+.reaction-widget {
+    display: flex;
+    gap: 0.5rem;
+    margin: 0.5rem 0;
+}
+
+.reaction-widget__form {
+    display: inline;
+}
+
+.reaction-widget__btn {
+    background: var(--y2k-input-bg);
+    border: 1px solid var(--y2k-border);
+    border-radius: 0;
+    padding: 0.15rem 0.5rem;
+    font-size: 1rem;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+}
+
+.reaction-widget__btn:hover {
+    background: var(--y2k-panel-header-bg);
+}
+
+.reaction-widget__btn:active {
+    transform: translate(1px, 1px);
+}
+
+.reaction-widget__btn--active {
+    background: var(--y2k-panel-yellow);
+    border-color: var(--y2k-border-strong);
+}
+
+.reaction-widget__btn--readonly {
+    cursor: default;
+}
+
+.reaction-widget__btn--readonly:hover {
+    background: var(--y2k-input-bg);
+}
+
+.reaction-widget__count {
+    font-family: 'Pixelify Sans', sans-serif;
+    font-size: 0.8rem;
+    color: var(--y2k-caption);
+}
