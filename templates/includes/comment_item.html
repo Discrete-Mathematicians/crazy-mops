@@ -12,13 +12,21 @@
                           class="comment-item__reply-form">
                         {% csrf_token %}
                         <textarea name="description" placeholder="Ответить..." required></textarea>
-                        <button type="submit" class="btn-pixel">Ответить</button>
+                        <div class="comment-item__reply-controls">
+                            <button type="submit" class="comment-item__link-btn">Ответить</button>
+                            {% if can_delete %}
+                                <button type="submit"
+                                        form="delete-form-{{ comment.pk }}"
+                                        class="comment-item__link-btn comment-item__link-btn--danger">Удалить</button>
+                            {% endif %}
+                        </div>
                     </form>
                 {% endif %}
                 {% if can_delete %}
-                    <form method="post" action="{% url 'comments:delete' comment.pk %}">
-                        {% csrf_token %}
-                        <button type="submit" class="btn-pixel">Удалить</button>
+                    <form id="delete-form-{{ comment.pk }}"
+                          method="post"
+                          action="{% url 'comments:delete' comment.pk %}"
+                          class="comment-item__delete-form">
                     </form>
                 {% endif %}
             </div>
