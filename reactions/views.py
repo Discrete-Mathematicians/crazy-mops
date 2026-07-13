@@ -12,18 +12,18 @@ from .models import Reaction
 @require_POST
 def react_to_post(request, post_pk):
     post = get_object_or_404(Post, pk=post_pk)
-    reaction_type = int(request.POST['reaction_type'])
+    reaction_type = int(request.POST["reaction_type"])
     _toggle_reaction(request.user, reaction_type, post=post)
-    return redirect('posts:detail', pk=post.pk)
+    return redirect("posts:detail", pk=post.pk)
 
 
 @login_required
 @require_POST
 def react_to_comment(request, comment_pk):
     comment = get_object_or_404(Comment, pk=comment_pk)
-    reaction_type = int(request.POST['reaction_type'])
+    reaction_type = int(request.POST["reaction_type"])
     _toggle_reaction(request.user, reaction_type, comment=comment)
-    return redirect('posts:detail', pk=comment.post_id)
+    return redirect("posts:detail", pk=comment.post_id)
 
 
 def _toggle_reaction(user, reaction_type, post=None, comment=None):
@@ -34,4 +34,4 @@ def _toggle_reaction(user, reaction_type, post=None, comment=None):
         existing.delete()
     else:
         existing.reaction_type = reaction_type
-        existing.save(update_fields=['reaction_type'])
+        existing.save(update_fields=["reaction_type"])
