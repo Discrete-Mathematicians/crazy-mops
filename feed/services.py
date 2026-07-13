@@ -12,22 +12,21 @@ RATING_TOP_N = 10
 def get_pet_rating():
     week_ago = timezone.now() - timedelta(days=RATING_WINDOW_DAYS)
     return (
-        Pet.objects
-        .annotate(
+        Pet.objects.annotate(
             reaction_count=Count(
-                'posts__reactions',
+                "posts__reactions",
                 filter=Q(posts__reactions__created_at__gte=week_ago),
                 distinct=True,
             ),
             comment_count=Count(
-                'posts__comments',
+                "posts__comments",
                 filter=Q(posts__comments__created_at__gte=week_ago),
                 distinct=True,
             ),
         )
-        .annotate(rating=F('reaction_count') + F('comment_count'))
+        .annotate(rating=F("reaction_count") + F("comment_count"))
         .filter(rating__gt=0)
-        .order_by('-rating')[:RATING_TOP_N]
+        .order_by("-rating")[:RATING_TOP_N]
     )
 
 
