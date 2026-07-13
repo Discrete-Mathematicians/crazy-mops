@@ -42,6 +42,21 @@ Namespace `reactions`, подключено как `path("reactions/", include("
 | 2 | смех |
 | 3 | вау |
 
+## Виджет реакций
+
+Inclusion tag `{% reaction_widget user post=post %}` или `{% reaction_widget user comment=comment %}`
+(reactions/templatetags/reaction_tags.py, шаблон includes/reaction_widget.html).
+
+| Аргумент | Тип | Описание |
+| --- | --- | --- |
+| user | User | текущий юзер - подсветка активной реакции; аноним видит счётчики без кнопок |
+| post / comment | Post / Comment | цель реакций, передаётся ровно одна |
+
+- Кнопка-эмодзи + счётчик; активная реакция подсвечена
+- Клик -> POST reactions:react_post / react_comment (toggle)
+- Используется: templates/posts/post_detail.html, templates/includes/comment_item.html
+- В post_card не вставлен: include only не передаёт user
+
 ## Маршруты (namespace `reactions`)
 
 | Имя | URL | View |
