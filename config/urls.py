@@ -3,7 +3,8 @@
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
-from django.urls import include, path
+from django.urls import include, path, re_path
+from django.views.static import serve as static_serve
 
 urlpatterns = [
     path("admin/", admin.site.urls),
@@ -16,6 +17,7 @@ urlpatterns = [
     path("comments/", include("comments.urls")),
     path("", include("feed.urls")),
     path("reactions/", include("reactions.urls")),
+    re_path(r"^media/(?P<path>.*)$", static_serve, {"document_root": settings.MEDIA_ROOT}),
 ]
 
 if settings.DEBUG:
