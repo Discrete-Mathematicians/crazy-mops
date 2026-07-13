@@ -35,3 +35,22 @@ class Comment(models.Model):
 
     def __str__(self):
         return f"{self.user}: {self.description[:30]}"
+
+class CommentMedia(models.Model):
+    IMAGE = 'image'
+    VIDEO = 'video'
+    MEDIA_TYPE_CHOICES = [
+        (IMAGE, 'Изображение'),
+        (VIDEO, 'Видео'),
+    ]
+
+    comment = models.ForeignKey(Comment, on_delete=models.CASCADE, related_name='media')
+    media_url = models.FileField(upload_to='comment_media/')
+    media_type = models.CharField(max_length=10, choices=MEDIA_TYPE_CHOICES)
+    display_order = models.SmallIntegerField(default=0)
+
+    class Meta:
+        ordering = ['display_order']
+
+    def __str__(self):
+        return f'Медиа #{self.pk} к комментарию #{self.comment_id}'
