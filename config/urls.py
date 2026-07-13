@@ -15,7 +15,7 @@ urlpatterns = [
     path("posts/", include("posts.urls")),
     path("comments/", include("comments.urls")),
     path("", include("feed.urls")),
-    path('reactions/', include('reactions.urls')),
+    path("reactions/", include("reactions.urls")),
 ]
 
 if settings.DEBUG:
