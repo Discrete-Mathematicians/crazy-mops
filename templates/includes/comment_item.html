@@ -5,24 +5,23 @@
             <span class="comment-item__author">{{ comment.user }}</span>
             <span class="comment-item__date">{{ comment.created_at|date:"d.m.Y H:i" }}</span>
             <p class="comment-item__text">{{ comment.description|linebreaks }}</p>
+            {% include "includes/comment_media.html" with comment=comment only %}
             <div class="comment-item__actions">
                 {% if user.is_authenticated %}
-                    <form method="post"
+                    <form id="reply-form-{{ comment.pk }}"
+                          method="post"
                           action="{% url 'comments:reply' comment.pk %}"
+                          enctype="multipart/form-data"
                           class="comment-item__reply-form">
                         {% csrf_token %}
                         <textarea name="description"
                                   placeholder="Ответить..."
                                   required
                                   class="comment-item__reply-textarea"></textarea>
-                        <div class="comment-item__reply-controls">
-                            <button type="submit" class="comment-item__link-btn">Ответить</button>
-                            {% if can_delete %}
-                                <button type="submit"
-                                        form="delete-form-{{ comment.pk }}"
-                                        class="comment-item__link-btn comment-item__link-btn--danger">Удалить</button>
-                            {% endif %}
-                        </div>
+                        <input type="file"
+                               name="media"
+                               multiple
+                               class="comment-item__reply-media-input">
                     </form>
                 {% endif %}
                 {% if can_delete %}
@@ -30,8 +29,21 @@
                           method="post"
                           action="{% url 'comments:delete' comment.pk %}"
                           class="comment-item__delete-form">
+                        {% csrf_token %}
                     </form>
                 {% endif %}
+                <div class="comment-item__reply-controls">
+                    {% if user.is_authenticated %}
+                        <button type="submit"
+                                form="reply-form-{{ comment.pk }}"
+                                class="comment-item__link-btn">Ответить</button>
+                    {% endif %}
+                    {% if can_delete %}
+                        <button type="submit"
+                                form="delete-form-{{ comment.pk }}"
+                                class="comment-item__link-btn comment-item__link-btn--danger">Удалить</button>
+                    {% endif %}
+                </div>
             </div>
             {% if replies %}
                 <div class="comment-item__replies">
