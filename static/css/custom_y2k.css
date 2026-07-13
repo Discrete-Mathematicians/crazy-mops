@@ -375,38 +375,6 @@ footer {
     font-family: 'Pixelify Sans', sans-serif;
 }
 
-/* --- Пагинация ленты (feed) --- */
-.feed-pagination {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 1rem;
-    margin-top: 1.5rem;
-    font-family: 'Pixelify Sans', sans-serif;
-}
-
-.feed-pagination a {
-    color: var(--y2k-link);
-    text-decoration: none;
-    padding: 0.25rem 0.75rem;
-    border: var(--border-w) solid var(--y2k-border);
-    background: var(--y2k-input-bg);
-}
-
-.feed-pagination a:hover {
-    background: var(--y2k-panel-header-bg);
-    color: var(--y2k-panel-header-text);
-}
-
-.feed-pagination a:active {
-    transform: translate(1px, 1px);
-}
-
-.feed-pagination span {
-    color: var(--y2k-caption);
-    white-space: nowrap;
-}
-
 /* --- Виджет календаря дней рождения --- */
 .birthday-widget__item {
     display: flex;
@@ -441,5 +409,37 @@ footer {
 .birthday-widget__item span {
     color: var(--y2k-caption);
     font-size: 0.85rem;
+    white-space: nowrap;
+}
+
+/* --- Пагинация ленты (feed) --- */
+.feed-pagination {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 1.5rem;
+    font-family: 'Pixelify Sans', sans-serif;
+}
+
+.feed-pagination a {
+    color: var(--y2k-link);
+    text-decoration: none;
+    padding: 0.25rem 0.75rem;
+    border: var(--border-w) solid var(--y2k-border);
+    background: var(--y2k-input-bg);
+}
+
+.feed-pagination a:hover {
+    background: var(--y2k-panel-header-bg);
+    color: var(--y2k-panel-header-text);
+}
+
+.feed-pagination a:active {
+    transform: translate(1px, 1px);
+}
+
+.feed-pagination span {
+    color: var(--y2k-caption);
     white-space: nowrap;
 }

@@ -1,12 +1,11 @@
 from datetime import date
+
 from pets.models import Pet
 
+
 def get_upcoming_birthdays(user):
-    return (
-        Pet.objects
-        .filter(subscription__user=user)
-        .exclude(birthday__isnull=True)
-    )
+    return Pet.objects.filter(subscription__user=user).exclude(birthday__isnull=True)
+
 
 def sort_by_nearest_birthday(pets):
     def days_until(pet):
