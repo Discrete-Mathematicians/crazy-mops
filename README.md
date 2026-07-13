@@ -50,6 +50,92 @@
 
 ---
 
+## Команда
+
+- Глущенко Дмитрий (minnesinger-sh) - frontend, шаблоны, view-логика (user_profile, search, posts, feed, reactions)
+- Алексей Зайцев (Yanotstatish) - users, pets
+- Бурындин Григорий (burindin235) - posts, subscriptions, comments
+- Лимарев Степан (Satimov727) - тесты
+
+## Развёртывание
+
+1. Клонировать репозиторий:
+```bash
+   git clone https://github.com/Discrete-Mathematicians/crazy-mops.git
+   cd crazy-mops
+```
+2. Создать и активировать виртуальное окружение:
+```bash
+   python3 -m venv venv
+   source venv/bin/activate
+```
+3. Установить зависимости:
+```bash
+   make install
+```
+4. Создать `.env` по образцу `.env.example`:
+```bash
+   cp .env.example .env
+```
+5. Поднять PostgreSQL (Docker):
+```bash
+   make db-up
+```
+6. Применить миграции и собрать статику:
+```bash
+   python manage.py migrate
+   python manage.py collectstatic --noinput
+```
+7. Создать суперпользователя:
+```bash
+   python manage.py createsuperuser
+```
+8. Запустить сервер:
+```bash
+   make run
+```
+
+По умолчанию проект запускается с `DEBUG=false`; для разработки установите
+`DJANGO_DEBUG=true` в `.env`.
+
+## Тесты
+
+```bash
+make test        # прогон тестов
+make test-cov    # с покрытием (порог 70%)
+```
+
+Текущее покрытие: 79%.
+
+## Модели и связи
+
+- **User** - кастомный пользователь (AbstractBaseUser, login/email уникальны)
+- **Pet** - питомец/блог; `owner -> User` (у юзера несколько питомцев)
+- **Post** - пост в блоге питомца; `pet -> Pet`
+- **PostMedia / CommentMedia** - медиавложения; `-> Post / Comment`
+- **Tag** - хештег; связь с Post через M2M (PostTag)
+- **Comment** - комментарий; `post -> Post`, `user -> User`,
+  `reply_comment -> Comment` (self, вложенные ответы)
+- **Reaction** - реакция на пост ИЛИ комментарий (ровно одна цель,
+  CHECK на уровне БД); уникальна на пару юзер+объект
+- **Subscription** - подписка юзера на питомца; уникальная пара `user+pet`
+
+ER-диаграмма: `docs/ER_diagram.md`
+
+## Скриншоты
+
+![Главная страница](docs/screenshots/feed.png)
+![Страница поста 1/3](docs/screenshots/post_01.png)
+![Страница поста 2/3](docs/screenshots/post_02.png)
+![Страница поста 3/3](docs/screenshots/post_03.png)
+![Страница питомца](docs/screenshots/pet_profile.png)
+
+## Видео-демо
+
+Ссылка будет добавлена к 16.07.2026
+
+---
+
 ![Status](https://img.shields.io/badge/Status-In%20Development-FF6B6B?style=for-the-badge)
 ![Python](https://img.shields.io/badge/Python-3.10+-3776AB?style=for-the-badge&logo=python&logoColor=white)
 ![Django](https://img.shields.io/badge/Django-4.2+-092E20?style=for-the-badge&logo=django&logoColor=white)
