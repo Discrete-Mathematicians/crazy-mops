@@ -1,5 +1,10 @@
 {% extends "base.html" %}
 {% load static %}
+{% block left_sidebar %}
+    <aside class="d-none d-lg-block">
+        {% include "includes/menu_widget.html" with user=user request=request only %}
+    </aside>
+{% endblock left_sidebar %}
 {% block content %}
     <div class="pixel-panel search-panel">
         <div class="panel-frame">

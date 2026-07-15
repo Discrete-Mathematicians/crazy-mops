@@ -1,10 +1,14 @@
 {% extends "base.html" %}
 {% block left_sidebar %}
-    {% include "includes/rating_widget.html" with pet_rating=pet_rating only %}
+    <aside class="d-none d-lg-block">
+        {% include "includes/menu_widget.html" with user=user request=request only %}
+        {% include "includes/search_widget.html" only %}
+        {% include "includes/tags_widget.html" with popular_tags=popular_tags only %}
+    </aside>
 {% endblock left_sidebar %}
 {% block content %}
     <div class="page-strip">
-        <span class="page-strip__title">&#10022; Лента</span>
+        <span class="page-strip__title">Лента</span>
         <a class="page-strip__link" href="#">rss</a>
     </div>
     {% for post in posts %}
@@ -30,5 +34,9 @@
     {% endif %}
 {% endblock content %}
 {% block right_sidebar %}
-    {% include "includes/birthday_widget.html" with upcoming_birthdays=upcoming_birthdays only %}
+    <aside class="d-none d-lg-block">
+        {% include "includes/pet_of_week_widget.html" with pet_of_week=pet_of_week only %}
+        {% include "includes/rating_widget.html" with pet_rating=pet_rating only %}
+        {% include "includes/birthday_widget.html" with upcoming_birthdays=upcoming_birthdays only %}
+    </aside>
 {% endblock right_sidebar %}

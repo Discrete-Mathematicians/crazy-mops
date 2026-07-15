@@ -1,0 +1,27 @@
+<div class="flat-panel">
+    <div class="panel-header panel-header--compact">Питомец недели</div>
+    <div class="panel-body panel-body--compact pet-week">
+        {% if pet_of_week %}
+            <a href="{% url 'pets:detail' pet_of_week.pk %}"
+               class="pet-week__photo-link">
+                <img class="pet-week__photo"
+                     src="{{ pet_of_week.avatar.url }}"
+                     alt="{{ pet_of_week.name }}"
+                     width="32"
+                     height="32">
+            </a>
+            <div class="pet-week__info">
+                <div class="pet-week__name">
+                    <a href="{% url 'pets:detail' pet_of_week.pk %}">{{ pet_of_week.name }}</a>
+                    {% if pet_of_week.sex is not None %}<span class="pet-week__sex">{{ pet_of_week.get_sex_display }}</span>{% endif %}
+                </div>
+                <div class="pet-week__meta">
+                    {{ pet_of_week.get_pet_type_display }}
+                    {% if pet_of_week.breed %}· {{ pet_of_week.breed }}{% endif %}
+                </div>
+            </div>
+        {% else %}
+            <p>За неделю пока тихо</p>
+        {% endif %}
+    </div>
+</div>

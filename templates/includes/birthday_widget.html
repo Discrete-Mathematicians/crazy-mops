@@ -1,18 +1,18 @@
-<div class="flat-panel birthday-widget">
-    <div class="panel-header">Дни рождения</div>
-    <div class="panel-body">
+<div class="flat-panel">
+    <div class="panel-header panel-header--compact">Дни рождения</div>
+    <div class="panel-body panel-body--compact">
         {% for pet in upcoming_birthdays %}
-            <div class="birthday-widget__item">
-                <img src="{{ pet.avatar.url }}"
-                     alt="{{ pet.name }}"
-                     class="birthday-widget__avatar"
-                     width="96"
-                     height="96">
-                <a href="{% url 'pets:detail' pet.pk %}">{{ pet.name }}</a>
-                <span>{{ pet.birthday|date:"d.m" }}</span>
+            <div class="birthday-widget__row">
+                <span class="birthday-widget__date">{{ pet.birthday|date:"j E"|lower }}</span>
+                <a class="birthday-widget__name" href="{% url 'pets:detail' pet.pk %}">{{ pet.name }}</a>
+                {% if pet.age_label %}
+                    <span class="birthday-widget__age">({{ pet.age_label }})</span>
+                {% endif %}
             </div>
         {% empty %}
             <p>Подпишитесь на питомцев, чтобы видеть их дни рождения</p>
         {% endfor %}
+        {# TODO: страница календаря вне MVP - заглушка до её появления #}
+        <a href="#" class="widget-calendar-link">календарь &gt;&gt;</a>
     </div>
 </div>

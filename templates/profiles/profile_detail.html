@@ -1,5 +1,10 @@
 {% extends "base.html" %}
 {% block title %}{{ profile_user.display_name }} — Сумасшедший мопс{% endblock title %}
+{% block left_sidebar %}
+    <aside class="d-none d-lg-block">
+        {% include "includes/menu_widget.html" with user=user request=request only %}
+    </aside>
+{% endblock left_sidebar %}
 {% block content %}
     <div class="row justify-content-center">
         <div class="col-12 col-md-8 col-lg-6">

@@ -59,14 +59,16 @@
             <div class="layout-3col">
                 {% block left_sidebar %}
                     <aside class="d-none d-lg-block">
+                        <div class="sidebar-stack"></div>
                     </aside>
                 {% endblock left_sidebar %}
-                <main class="py-3">
+                <main>
                     {% block content %}
                     {% endblock content %}
                 </main>
                 {% block right_sidebar %}
                     <aside class="d-none d-lg-block">
+                        <div class="sidebar-stack"></div>
                     </aside>
                 {% endblock right_sidebar %}
             </div>

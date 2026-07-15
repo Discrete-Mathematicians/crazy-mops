@@ -1,0 +1,14 @@
+<div class="flat-panel">
+    <div class="panel-header panel-header--compact">Хештеги</div>
+    <div class="panel-body panel-body--compact tags-widget">
+        {% for tag in popular_tags %}
+            <a href="{% url 'posts:by_tag' tag.name %}">#{{ tag.name }}</a>{% if not forloop.last %} {% endif %}
+        {% empty %}
+            <p>Тегов пока нет</p>
+        {% endfor %}
+        {% if popular_tags %}
+            <br>
+            <a href="{% url 'search:search' %}" class="tags-widget__more">еще &gt;&gt;</a>
+        {% endif %}
+    </div>
+</div>
