@@ -1,12 +1,14 @@
 {% extends "base.html" %}
 {% block left_sidebar %}
-    <aside class="col-lg-2 d-none d-lg-block">
-        {% include "includes/rating_widget.html" with pet_rating=pet_rating only %}
-    </aside>
+    {% include "includes/rating_widget.html" with pet_rating=pet_rating only %}
 {% endblock left_sidebar %}
 {% block content %}
+    <div class="page-strip">
+        <span class="page-strip__title">&#10022; Лента</span>
+        <a class="page-strip__link" href="#">rss</a>
+    </div>
     {% for post in posts %}
-        {% include "includes/post_card.html" with post=post only %}
+        {% include "includes/post_card.html" with post=post user=user csrf_token=csrf_token only %}
     {% empty %}
         <div class="flat-panel">
             <div class="panel-body">
@@ -28,7 +30,5 @@
     {% endif %}
 {% endblock content %}
 {% block right_sidebar %}
-    <aside class="col-lg-2 d-none d-lg-block">
-        {% include "includes/birthday_widget.html" with upcoming_birthdays=upcoming_birthdays only %}
-    </aside>
+    {% include "includes/birthday_widget.html" with upcoming_birthdays=upcoming_birthdays only %}
 {% endblock right_sidebar %}

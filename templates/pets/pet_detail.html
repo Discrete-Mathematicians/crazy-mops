@@ -43,7 +43,7 @@
         <section class="pet-posts">
             <h2>Посты</h2>
             {% for post in posts_page %}
-                {% include "includes/post_card.html" with post=post only %}
+                {% include "includes/post_card.html" with post=post user=user csrf_token=csrf_token only %}
             {% empty %}
                 <p class="search-empty">Постов пока нет.</p>
             {% endfor %}
