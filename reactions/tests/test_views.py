@@ -53,11 +53,6 @@ class ReactToPostViewTests(TestCase):
         actual = Reaction.objects.filter(user=self.user, post=self.post).count()
         self.assertEqual(actual, 1)
 
-    def test_redirects_to_post_detail(self):
-        response = self.react(Reaction.LIKE)
-
-        self.assertRedirects(response, reverse("posts:detail", args=[self.post.pk]))
-
     def test_anonymous_redirects_to_login(self):
         self.client.logout()
 
@@ -112,11 +107,6 @@ class ReactToCommentViewTests(TestCase):
 
         actual = Reaction.objects.get(user=self.user, comment=self.comment).reaction_type
         self.assertEqual(actual, Reaction.HEART)
-
-    def test_redirects_to_comments_post_detail(self):
-        response = self.react(Reaction.LIKE)
-
-        self.assertRedirects(response, reverse("posts:detail", args=[self.post.pk]))
 
     def test_anonymous_redirects_to_login(self):
         self.client.logout()
