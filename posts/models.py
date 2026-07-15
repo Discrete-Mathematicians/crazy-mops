@@ -63,7 +63,7 @@ class PostMedia(models.Model):
     class MediaType(models.TextChoices):
         IMAGE = "image", "изображение"
         VIDEO = "video", "видео"
-        
+
     @property
     def is_video(self):
         return self.media_type == PostMedia.MediaType.VIDEO

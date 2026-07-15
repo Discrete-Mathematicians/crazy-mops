@@ -38,7 +38,6 @@
     --y2k-placeholder: #9a8fbd;
     --y2k-input-bg: #fff;
     --y2k-overlay: rgb(43 36 64 / 55%);
-
     --space-1: 4px;
     --space-2: 8px;
     --space-3: 12px;
@@ -120,7 +119,7 @@ footer {
     margin-top: var(--space-3);
 }
 
-@media (min-width: 992px) {
+@media (width >=992px) {
     .layout-3col {
         display: grid;
         grid-template-columns: 244px minmax(0, 1fr) 264px;
@@ -178,12 +177,6 @@ footer {
     background: var(--panel-bg, var(--y2k-panel-paper));
     border: var(--border-w) solid var(--y2k-border-strong);
     margin: 0;
-}
-
-.panel-frame {
-    background: var(--panel-bg, var(--y2k-panel-paper));
-
-    /* clip-path */
 }
 
 .panel--yellow {
@@ -312,6 +305,7 @@ footer {
 
 .menu-widget a::before {
     content: '\25B8';
+
     /* треугольный буллет */
     color: var(--y2k-accent-pink);
     margin-right: 6px;
@@ -448,13 +442,6 @@ footer {
 .rating-widget__owner {
     color: var(--y2k-caption);
     font-size: 0.8rem;
-}
-
-.rating-widget__score {
-    font-family: 'IBM Plex Sans', sans-serif;
-    font-weight: 700;
-    color: var(--y2k-accent-pink);
-    white-space: nowrap;
 }
 
 .widget-top-pet-link {
@@ -637,6 +624,7 @@ footer {
 /* --- Посты --- */
 .post-card {
     --panel-bg: var(--y2k-panel-yellow);
+
     width: 100%;
     margin-bottom: 16px;
 }
@@ -812,12 +800,6 @@ footer {
     border-bottom: none;
 }
 
-.rating-widget__place {
-    font-family: 'Pixelify Sans', sans-serif;
-    color: var(--y2k-accent-purple);
-    min-width: 1.2rem;
-}
-
 .rating-widget__avatar {
     width: 32px;
     height: 32px;
@@ -836,8 +818,10 @@ footer {
 }
 
 .rating-widget__score {
-    font-family: 'Pixelify Sans', sans-serif;
-    color: var(--y2k-caption);
+    font-family: 'Press Start 2P', sans-serif;
+    font-weight: 700;
+    color: var(--y2k-accent-pink);
+    white-space: nowrap;
 }
 
 /* --- Пагинация ленты (feed) --- */

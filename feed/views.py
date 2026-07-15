@@ -13,7 +13,8 @@ class FeedView(LoginRequiredMixin, ListView):
     def get_queryset(self):
         return (
             Post.objects.filter(pet__subscription__user=self.request.user)
-            .select_related('pet__owner').prefetch_related('media', 'tags')
+            .select_related("pet__owner")
+            .prefetch_related("media", "tags")
             .order_by("-created_at")
         )
 

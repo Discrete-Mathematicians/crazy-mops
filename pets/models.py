@@ -1,7 +1,9 @@
+from datetime import date
+
 from django.conf import settings
 from django.db import models
 from django.urls import reverse
-from datetime import date
+
 
 class Pet(models.Model):
     """Карточка питомца. Поля соответствуют схеме `pet` из docs/MODELS.md."""
