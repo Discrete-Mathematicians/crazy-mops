@@ -1,19 +1,18 @@
-<div class="flat-panel rating-widget">
-    <div class="panel-header">Рейтинг недели</div>
-    <div class="panel-body">
+<div class="flat-panel">
+    <div class="panel-header panel-header--compact">Рейтинг недели</div>
+    <div class="panel-body panel-body--compact">
         {% for pet in pet_rating %}
-            <div class="rating-widget__item">
-                <span class="rating-widget__place">{{ forloop.counter }}</span>
-                <img src="{{ pet.avatar.url }}"
-                     alt="{{ pet.name }}"
-                     class="rating-widget__avatar"
-                     width="32"
-                     height="32">
-                <a href="{% url 'pets:detail' pet.pk %}">{{ pet.name }}</a>
+            <div class="rating-widget__row">
+                <span class="rating-widget__place">{{ forloop.counter }}.</span>
+                <a class="rating-widget__name" href="{% url 'pets:detail' pet.pk %}">
+                    {{ pet.name }} <span class="rating-widget__owner">({{ pet.owner.display_name }})</span>
+                </a>
                 <span class="rating-widget__score">{{ pet.rating }}</span>
             </div>
         {% empty %}
             <p>За неделю пока тихо - подпишитесь на питомцев и оставьте реакцию!</p>
         {% endfor %}
+        {# TODO: страница рейтинга вне MVP - заглушка до её появления #}
+        <a href="#" class="widget-top-pet-link">таблица лидеров &gt;&gt;</a>
     </div>
 </div>

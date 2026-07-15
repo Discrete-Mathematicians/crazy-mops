@@ -38,6 +38,11 @@
     --y2k-placeholder: #9a8fbd;
     --y2k-input-bg: #fff;
     --y2k-overlay: rgb(43 36 64 / 55%);
+
+    --space-1: 4px;
+    --space-2: 8px;
+    --space-3: 12px;
+    --space-4: 16px;
 }
 
 /* === БАЗА: шрифты, фон, ссылки === */
@@ -53,14 +58,15 @@ h3,
 footer,
 .nav-item,
 .navbar-brand,
-.panel-header {
+.panel-header,
+.panel-header--compact {
     font-family: 'Pixelify Sans', monospace;
 }
 
 /* === КАРКАС: рамка страницы, шапка, футер === */
 .page-frame {
     width: 100%;
-    max-width: 1024px;
+    max-width: 1104px;
     margin: 12px auto;
     padding: 0 12px;
     border: 2px dotted var(--y2k-border);
@@ -111,14 +117,22 @@ footer {
 /* мобилка: обычный поток, грид только на десктопе */
 .layout-3col {
     display: block;
+    margin-top: var(--space-3);
 }
 
 @media (min-width: 992px) {
     .layout-3col {
         display: grid;
-        grid-template-columns: 224px minmax(0, 1fr) 224px;
-        gap: 12px;
+        grid-template-columns: 244px minmax(0, 1fr) 264px;
+        gap: var(--space-3);
+        align-items: start;
     }
+}
+
+.layout-3col>aside.d-lg-block {
+    display: flex !important;
+    flex-direction: column;
+    gap: var(--space-3);
 }
 
 /* === КОМПОНЕНТЫ === */
@@ -163,6 +177,7 @@ footer {
 .flat-panel {
     background: var(--panel-bg, var(--y2k-panel-paper));
     border: var(--border-w) solid var(--y2k-border-strong);
+    margin: 0;
 }
 
 .panel-frame {
@@ -183,13 +198,26 @@ footer {
     background: var(--y2k-panel-header-bg);
     color: var(--y2k-panel-header-text);
     text-align: center;
-    padding: 6px 8px;
+    padding: var(--space-2) var(--space-3);
     font-size: 1.3rem;
     letter-spacing: 1px;
+    font-family: 'Pixelify Sans', monospace;
+    border-bottom: var(--border-w) solid var(--y2k-border-strong);
+    margin-bottom: var(--space-1);
+}
+
+.panel-header--compact {
+    font-size: 1rem;
+    padding: var(--space-1) var(--space-2);
+    letter-spacing: 0.5px;
 }
 
 .panel-body {
-    padding: 14px 16px 16px;
+    padding: var(--space-3) var(--space-4) var(--space-4);
+}
+
+.panel-body--compact {
+    padding: var(--space-2) var(--space-3) var(--space-3);
 }
 
 /* --- поля форм --- */
@@ -267,6 +295,253 @@ footer {
 
 .btn-pixel:active {
     transform: translate(1px, 1px);
+}
+
+/* --- Меню --- */
+.menu-widget {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.menu-widget a {
+    color: var(--y2k-panel-header-text);
+    text-decoration: none;
+    font-family: 'Pixelify Sans', monospace;
+}
+
+.menu-widget a::before {
+    content: '\25B8';
+    /* треугольный буллет */
+    color: var(--y2k-accent-pink);
+    margin-right: 6px;
+}
+
+.menu-widget a:hover {
+    text-decoration: underline;
+}
+
+.menu-widget a.is-current {
+    background: var(--y2k-panel-header-bg);
+    border: 1px solid var(--y2k-border-strong);
+    padding: 4px 8px;
+    margin: 0 -4px;
+    text-decoration: none;
+}
+
+.menu-widget a.is-current:hover {
+    text-decoration: none;
+}
+
+.menu-widget a.menu-widget__exit {
+    color: var(--y2k-accent-pink);
+}
+
+/* --- Поиск --- */
+.sidebar-search input[type='text'] {
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 4px 6px;
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 0.8rem;
+    border: 1px solid var(--y2k-border);
+    border-radius: 0;
+    background: var(--y2k-input-bg);
+}
+
+.sidebar-search input::placeholder {
+    color: var(--y2k-placeholder);
+}
+
+.sidebar-search .btn-pixel {
+    margin-top: 6px;
+    font-family: 'Pixelify Sans', monospace;
+    font-size: 0.85rem;
+    background: var(--y2k-btn-yellow);
+    color: var(--y2k-btn-yellow-text);
+    border: 1px solid var(--y2k-btn-yellow-border);
+    border-radius: 0;
+    padding: 3px 10px;
+    cursor: pointer;
+}
+
+/* --- Хештеги --- */
+.tags-widget {
+    line-height: 2;
+    font-family: 'Pixelify Sans', monospace;
+    font-size: 0.85rem;
+}
+
+.tags-widget__more {
+    color: var(--y2k-accent-purple);
+}
+
+/* --- Питомец недели --- */
+.pet-week {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-2);
+}
+
+.pet-week__photo {
+    width: 88px;
+    height: 88px;
+    object-fit: cover;
+    border: 2px solid var(--y2k-border);
+    image-rendering: pixelated;
+    flex-shrink: 0;
+}
+
+.pet-week__info {
+    min-width: 0;
+}
+
+.pet-week__name {
+    font-family: 'Pixelify Sans', monospace;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: var(--space-1);
+}
+
+.pet-week__sex {
+    font-size: 0.85rem;
+    color: var(--y2k-caption);
+}
+
+.pet-week__meta {
+    color: var(--y2k-caption);
+    font-size: 0.8rem;
+    margin-top: 2px;
+}
+
+/* --- Рейтинг --- */
+.rating-widget__row {
+    display: flex;
+    align-items: baseline;
+    gap: var(--space-1);
+    padding: var(--space-1) 0;
+    font-family: 'IBM Plex Sans', sans-serif;
+}
+
+.rating-widget__row+.rating-widget__row {
+    border-top: 1px dashed var(--y2k-border);
+}
+
+.rating-widget__place {
+    font-family: 'Pixelify Sans', monospace;
+    color: var(--y2k-accent-purple);
+    min-width: 1.1rem;
+}
+
+.rating-widget__name {
+    flex: 1;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    color: var(--y2k-panel-header-text);
+    text-decoration: none;
+}
+
+.rating-widget__owner {
+    color: var(--y2k-caption);
+    font-size: 0.8rem;
+}
+
+.rating-widget__score {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-weight: 700;
+    color: var(--y2k-accent-pink);
+    white-space: nowrap;
+}
+
+.widget-top-pet-link {
+    display: block;
+    margin-top: var(--space-2);
+    font-family: 'Pixelify Sans', monospace;
+    font-size: 0.8rem;
+    color: var(--y2k-accent-purple);
+    text-align: right;
+}
+
+/* --- Дни рождения строка дата - имя --- */
+.birthday-widget__row {
+    display: flex;
+    align-items: baseline;
+    gap: var(--space-1);
+    padding: var(--space-1) 0;
+    font-family: 'IBM Plex Sans', sans-serif;
+}
+
+.birthday-widget__row+.birthday-widget__row {
+    border-top: 1px dashed var(--y2k-border);
+}
+
+.birthday-widget__row::before {
+    content: '\2665';
+    color: var(--y2k-accent-pink);
+    font-size: 0.75rem;
+}
+
+.birthday-widget__date {
+    color: var(--y2k-caption);
+    white-space: nowrap;
+}
+
+.birthday-widget__name {
+    flex: 1;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    color: var(--y2k-panel-header-text);
+    text-decoration: none;
+}
+
+.birthday-widget__age {
+    color: var(--y2k-caption);
+    font-size: 0.8rem;
+}
+
+.widget-calendar-link {
+    display: block;
+    margin-top: var(--space-2);
+    font-family: 'Pixelify Sans', monospace;
+    font-size: 0.8rem;
+    color: var(--y2k-accent-purple);
+    text-align: right;
+}
+
+/* --- Полоска-заголовок страницы --- */
+.page-strip {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 6px 12px;
+    margin-bottom: 16px;
+    font-family: 'Pixelify Sans', monospace;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--y2k-input-bg);
+    background: var(--y2k-accent-purple);
+    clip-path: polygon(0 var(--step), var(--step) var(--step), var(--step) 0,
+            calc(100% - var(--step)) 0, calc(100% - var(--step)) var(--step), 100% var(--step),
+            100% calc(100% - var(--step)), calc(100% - var(--step)) calc(100% - var(--step)),
+            calc(100% - var(--step)) 100%, var(--step) 100%,
+            var(--step) calc(100% - var(--step)), 0 calc(100% - var(--step)));
+}
+
+.page-strip__title::before {
+    content: '\2726';
+    margin-right: 6px;
+}
+
+.page-strip__link {
+    color: var(--y2k-input-bg);
+    text-decoration: underline;
+    text-transform: lowercase;
 }
 
 /* === СТРАНИЧНЫй === */
@@ -756,29 +1031,4 @@ footer {
     font-family: 'Pixelify Sans', sans-serif;
     font-size: 0.8rem;
     color: var(--y2k-caption);
-}
-
-/* --- Полоска-заголовок страницы --- */
-.page-strip {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 6px 12px;
-    margin-bottom: 16px;
-    font-family: 'Pixelify Sans', monospace;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    color: var(--y2k-input-bg);
-    background: var(--y2k-accent-purple);
-    clip-path: polygon(0 var(--step), var(--step) var(--step), var(--step) 0,
-            calc(100% - var(--step)) 0, calc(100% - var(--step)) var(--step), 100% var(--step),
-            100% calc(100% - var(--step)), calc(100% - var(--step)) calc(100% - var(--step)),
-            calc(100% - var(--step)) 100%, var(--step) 100%,
-            var(--step) calc(100% - var(--step)), 0 calc(100% - var(--step)));
-}
-
-.page-strip__link {
-    color: var(--y2k-input-bg);
-    text-decoration: underline;
-    text-transform: lowercase;
 }

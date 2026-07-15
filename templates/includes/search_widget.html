@@ -1,0 +1,10 @@
+<div class="flat-panel">
+    <div class="panel-header panel-header--compact">Поиск</div>
+    <div class="panel-body panel-body--compact sidebar-search">
+        <form method="get" action="{% url 'search:search' %}">
+            <input type="text" name="q" placeholder="по блогам...">
+            <input type="hidden" name="type" value="pets">
+            <button type="submit" class="btn-pixel">Найти!</button>
+        </form>
+    </div>
+</div>
