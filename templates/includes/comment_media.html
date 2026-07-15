@@ -2,15 +2,19 @@
     <div class="comment-item__media">
         {% for media in comment.media.all %}
             {% if media.media_type == 'image' %}
-                <img src="{{ media.media_url.url }}"
-                     alt=""
-                     class="comment-item__media-item"
-                     width="96"
-                     height="96">
+                <button type="button"
+                        class="comment-item__media-item"
+                        data-lightbox="{{ media.media_url.url }}">
+                    <img src="{{ media.media_url.url }}"
+                         alt=""
+                         loading="lazy"
+                         width="96"
+                         height="96">
+                </button>
             {% else %}
                 <video src="{{ media.media_url.url }}"
                        controls
-                       class="comment-item__media-item">
+                       class="comment-item__media-item comment-item__media-item--video">
                 </video>
             {% endif %}
         {% endfor %}
