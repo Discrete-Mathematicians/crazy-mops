@@ -48,6 +48,10 @@ class User(AbstractBaseUser, PermissionsMixin):
         if not self.display_name:
             self.display_name = self.login
         super().save(*args, **kwargs)
+    
+    def get_full_name(self):
+        """Имя и фамилия через пробел; пустая строка, если оба не заполнены."""
+        return f"{self.first_name} {self.last_name}".strip()
 
     def __str__(self):
         return self.display_name or self.login
