@@ -20,6 +20,7 @@
     --y2k-panel-yellow: #fdf7d4;
     --y2k-panel-pink: #fbe3ec;
     --y2k-panel-paper: #fffdf6;
+    --y2k-panel-green: #cee7bb;
     --y2k-panel-header-bg: #cbb6ee;
     --y2k-panel-header-text: #3b2670;
     --y2k-btn-yellow: #fce38b;
@@ -36,6 +37,7 @@
     --y2k-caption: #6a55a3;
     --y2k-placeholder: #9a8fbd;
     --y2k-input-bg: #fff;
+    --y2k-overlay: rgb(43 36 64 / 55%);
 }
 
 /* === БАЗА: шрифты, фон, ссылки === */
@@ -106,6 +108,19 @@ footer {
     }
 }
 
+/* мобилка: обычный поток, грид только на десктопе */
+.layout-3col {
+    display: block;
+}
+
+@media (min-width: 992px) {
+    .layout-3col {
+        display: grid;
+        grid-template-columns: 224px minmax(0, 1fr) 224px;
+        gap: 12px;
+    }
+}
+
 /* === КОМПОНЕНТЫ === */
 
 /* --- Панель ---
@@ -113,6 +128,37 @@ footer {
    .flat-panel - прямые углы, обычный border
    .pixel-panel > .panel-frame - пиксельные углы через clip-path
 */
+.pixel-panel {
+    background: var(--y2k-border-strong);
+    padding: var(--border-w);
+    clip-path: polygon(0 var(--step), var(--step) var(--step), var(--step) 0,
+            calc(100% - var(--step)) 0, calc(100% - var(--step)) var(--step), 100% var(--step),
+            100% calc(100% - var(--step)), calc(100% - var(--step)) calc(100% - var(--step)),
+            calc(100% - var(--step)) 100%, var(--step) 100%,
+            var(--step) calc(100% - var(--step)), 0 calc(100% - var(--step)));
+}
+
+.panel-frame {
+    background: var(--panel-bg, var(--y2k-panel-paper));
+    clip-path: polygon(0 var(--step), var(--step) var(--step), var(--step) 0,
+            calc(100% - var(--step)) 0, calc(100% - var(--step)) var(--step), 100% var(--step),
+            100% calc(100% - var(--step)), calc(100% - var(--step)) calc(100% - var(--step)),
+            calc(100% - var(--step)) 100%, var(--step) 100%,
+            var(--step) calc(100% - var(--step)), 0 calc(100% - var(--step)));
+}
+
+/* чередование фонов карточек */
+.post-card:nth-child(3n + 1) {
+    --panel-bg: var(--y2k-panel-yellow);
+}
+
+.post-card:nth-child(3n + 2) {
+    --panel-bg: var(--y2k-panel-pink);
+}
+
+.post-card:nth-child(3n) {
+    --panel-bg: var(--y2k-panel-green);
+}
 
 .flat-panel {
     background: var(--panel-bg, var(--y2k-panel-paper));
@@ -140,7 +186,6 @@ footer {
     padding: 6px 8px;
     font-size: 1.3rem;
     letter-spacing: 1px;
-    border-bottom: var(--border-w) solid var(--y2k-border-strong);
 }
 
 .panel-body {
@@ -316,63 +361,130 @@ footer {
 
 /* --- Посты --- */
 .post-card {
+    --panel-bg: var(--y2k-panel-yellow);
+    width: 100%;
     margin-bottom: 16px;
-    width: 600px;
 }
 
-.post-card__title a {
-    color: var(--y2k-link);
+.post-card__meta {
+    display: flex;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 4px 8px;
+    margin-bottom: 8px;
+    font-size: 0.85rem;
 }
 
-.post-card__text {
-    margin: 8px 0;
+.post-card__title {
+    font-family: 'Pixelify Sans', monospace;
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--y2k-panel-header-text);
 }
 
-.post-card__date,
-.post-detail__date {
+.post-card__author a {
+    color: var(--y2k-panel-header-text);
+}
+
+.post-card__date {
     color: var(--y2k-caption);
-    font-size: 0.85em;
 }
 
-.post-detail__actions {
-    display: flex;
-    gap: 12px;
-    margin-top: 16px;
-}
-
-.form-field {
-    margin-bottom: 12px;
-}
-
-.form-field label {
-    display: block;
-    margin-bottom: 4px;
-}
-
-/* --- post: медиа и теги --- */
-.post-detail__media {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-    margin: 12px 0;
-}
-
-.post-detail__media-item {
-    max-width: 100%;
-    max-height: 250px;
-    border: 4px solid var(--y2k-border);
-}
-
-.post-detail__tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
+/* --- медиа фиксированная область, раскладка от количества --- */
+.post-card__media {
+    display: grid;
+    gap: 4px;
+    height: 280px;
     margin: 8px 0;
 }
 
-.post-detail__tag {
-    color: var(--y2k-link);
-    font-family: 'Pixelify Sans', sans-serif;
+.post-card__media-item {
+    position: relative;
+    display: block;
+    overflow: hidden;
+    border: 1px solid var(--y2k-border);
+    min-height: 0;
+}
+
+.post-card__media-item img,
+.post-card__media-item video {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.post-card__media--1 {
+    grid-template-columns: 1fr;
+}
+
+.post-card__media--2 {
+    grid-template-columns: 1fr 1fr;
+}
+
+.post-card__media--3 {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+}
+
+.post-card__media--3 .post-card__media-item:first-child {
+    grid-row: 1 / 3;
+}
+
+.post-card__media--4 {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+}
+
+.post-card__media-more {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Pixelify Sans', monospace;
+    font-size: 1.4rem;
+    color: var(--y2k-input-bg);
+    background: var(--y2k-overlay);
+}
+
+/* бейдж видео */
+.post-card__media-badge {
+    position: absolute;
+    right: 4px;
+    bottom: 4px;
+    padding: 1px 6px;
+    font-size: 0.7rem;
+    color: var(--y2k-input-bg);
+    background: var(--y2k-panel-header-text);
+}
+
+/* текст и теги */
+.post-card__text {
+    margin: 8px 0 4px;
+}
+
+.post-card__tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 8px;
+    font-family: 'Pixelify Sans', monospace;
+    font-size: 0.9rem;
+}
+
+.post-card__footer {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.post-card__comments-link {
+    margin-left: auto;
+    font-family: 'Pixelify Sans', monospace;
+    font-size: 0.9rem;
+    color: var(--y2k-accent-purple);
 }
 
 /* --- Виджет календаря дней рождения --- */
@@ -644,4 +756,29 @@ footer {
     font-family: 'Pixelify Sans', sans-serif;
     font-size: 0.8rem;
     color: var(--y2k-caption);
+}
+
+/* --- Полоска-заголовок страницы --- */
+.page-strip {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 6px 12px;
+    margin-bottom: 16px;
+    font-family: 'Pixelify Sans', monospace;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--y2k-input-bg);
+    background: var(--y2k-accent-purple);
+    clip-path: polygon(0 var(--step), var(--step) var(--step), var(--step) 0,
+            calc(100% - var(--step)) 0, calc(100% - var(--step)) var(--step), 100% var(--step),
+            100% calc(100% - var(--step)), calc(100% - var(--step)) calc(100% - var(--step)),
+            calc(100% - var(--step)) 100%, var(--step) 100%,
+            var(--step) calc(100% - var(--step)), 0 calc(100% - var(--step)));
+}
+
+.page-strip__link {
+    color: var(--y2k-input-bg);
+    text-decoration: underline;
+    text-transform: lowercase;
 }
