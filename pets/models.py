@@ -1,7 +1,7 @@
 from django.conf import settings
 from django.db import models
 from django.urls import reverse
-
+from datetime import date
 
 class Pet(models.Model):
     """Карточка питомца. Поля соответствуют схеме `pet` из docs/MODELS.md."""
@@ -37,6 +37,30 @@ class Pet(models.Model):
         verbose_name = "Питомец"
         verbose_name_plural = "Питомцы"
         ordering = ["name"]
+
+    @property
+    def age_years(self):
+        """Возраст в полных годах на сегодня; None, если дата рождения не указана."""
+        if not self.birthday:
+            return None
+        today = date.today()
+        years = today.year - self.birthday.year
+        if (today.month, today.day) < (self.birthday.month, self.birthday.day):
+            years -= 1
+        return years
+
+    @property
+    def age_label(self):
+        years = self.age_years
+        if years is None:
+            return ""
+        if years % 10 == 1 and years % 100 != 11:
+            word = "год"
+        elif 2 <= years % 10 <= 4 and not 12 <= years % 100 <= 14:
+            word = "года"
+        else:
+            word = "лет"
+        return f"{years} {word}"
 
     def __str__(self):
         return self.name
