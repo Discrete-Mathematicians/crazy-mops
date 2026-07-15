@@ -14,7 +14,8 @@ def react_to_post(request, post_pk):
     post = get_object_or_404(Post, pk=post_pk)
     reaction_type = int(request.POST["reaction_type"])
     _toggle_reaction(request.user, reaction_type, post=post)
-    return redirect("posts:detail", pk=post.pk)
+    url = (request.META.get("HTTP_REFERER") or post.get_absolute_url()).split("#")[0]
+    return redirect(f"{url}#post-{post.pk}")
 
 
 @login_required

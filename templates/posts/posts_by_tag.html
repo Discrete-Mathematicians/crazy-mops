@@ -5,7 +5,7 @@
             <div class="panel-header">Посты по тегу #{{ tag_name }}</div>
             <div class="panel-body">
                 {% for post in posts_page %}
-                    {% include "includes/post_card.html" with post=post only %}
+                    {% include "includes/post_card.html" with post=post user=user csrf_token=csrf_token only %}
                 {% empty %}
                     <p class="search-empty">Постов с таким тегом пока нет.</p>
                 {% endfor %}
