@@ -4,7 +4,6 @@ from django.db.models import Count, F, Q
 from django.utils import timezone
 
 from pets.models import Pet
-
 from posts.models import Tag
 
 RATING_WINDOW_DAYS = 7
@@ -16,7 +15,8 @@ POPULAR_TAGS_TOP_N = 6
 def get_pet_rating():
     week_ago = timezone.now() - timedelta(days=RATING_WINDOW_DAYS)
     return (
-        Pet.objects.select_related('owner').annotate(
+        Pet.objects.select_related("owner")
+        .annotate(
             reaction_count=Count(
                 "posts__reactions",
                 filter=Q(posts__reactions__created_at__gte=week_ago),
@@ -55,11 +55,11 @@ def sort_by_nearest_birthday(pets):
 
     return sorted(pets, key=days_until)
 
+
 def get_popular_tags():
     """Топ тегов по числу постов за все время"""
     return (
-        Tag.objects
-        .annotate(post_count=Count("posts", distinct=True))
+        Tag.objects.annotate(post_count=Count("posts", distinct=True))
         .filter(post_count__gt=0)
         .order_by("-post_count")[:POPULAR_TAGS_TOP_N]
     )
