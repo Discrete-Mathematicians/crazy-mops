@@ -819,7 +819,7 @@ footer {
 
 .rating-widget__score {
     font-family: 'Press Start 2P', sans-serif;
-    font-weight: 700;
+    font-size: 0.75rem;
     color: var(--y2k-accent-pink);
     white-space: nowrap;
 }
