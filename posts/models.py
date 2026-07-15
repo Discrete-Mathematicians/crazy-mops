@@ -63,6 +63,10 @@ class PostMedia(models.Model):
     class MediaType(models.TextChoices):
         IMAGE = "image", "изображение"
         VIDEO = "video", "видео"
+        
+    @property
+    def is_video(self):
+        return self.media_type == PostMedia.MediaType.VIDEO
 
     post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name="media", verbose_name="пост")
     media_url = models.FileField("файл", upload_to="posts/media/")
