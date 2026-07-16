@@ -1,14 +1,22 @@
 {% extends "base.html" %}
-{% comment %}
-  ЗАГЛУШКА. Финальная вёрстка — в sub-issue «Шаблоны приложения pets».
-  Контракт: docs/wiki/contracts/pets.md
-{% endcomment %}
-{% block title %}Удаление карточки — Сумасшедший мопс{% endblock title %}
+{% block title %}Удалить питомца — Сумасшедший мопс{% endblock title %}
 {% block content %}
-    <form method="post">
-        {% csrf_token %}
-        <p>Удалить карточку «{{ pet.name }}»? Действие необратимо.</p>
-        <button type="submit">Удалить</button>
-        <a href="{% url 'pets:detail' pet.pk %}">Отмена</a>
-    </form>
+    <div class="row justify-content-center">
+        <div class="col-12">
+            <div class="flat-panel confirm-panel">
+                <div class="panel-body">
+                    <p class="confirm-panel__warning">Это действие необратимо!</p>
+                    <p class="confirm-panel__question">Удалить питомца</p>
+                    <p class="confirm-panel__target">«{{ pet.name }}»?</p>
+                    <div class="confirm-panel__actions">
+                        <form method="post">
+                            {% csrf_token %}
+                            <button type="submit" class="btn-pixel btn-pixel--danger">Удалить</button>
+                        </form>
+                        <a href="{% url 'pets:detail' pet.pk %}" class="btn-pixel">Отмена</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock content %}

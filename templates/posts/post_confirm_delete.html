@@ -1,15 +1,21 @@
 {% extends "base.html" %}
+{% block title %}Удалить пост — Сумасшедший мопс{% endblock title %}
 {% block content %}
-    <div class="pixel-panel">
-        <div class="panel-frame">
-            <div class="panel-header">Удалить пост?</div>
-            <div class="panel-body">
-                <p>«{{ post.title }}» ({{ post.pet.name }}) будет удалён безвозвратно.</p>
-                <form method="post">
-                    {% csrf_token %}
-                    <button type="submit" class="btn-pixel">Удалить</button>
-                    <a href="{% url 'posts:detail' post.pk %}" class="btn-pixel">Отмена</a>
-                </form>
+    <div class="row justify-content-center">
+        <div class="col-12">
+            <div class="flat-panel confirm-panel">
+                <div class="panel-body">
+                    <p class="confirm-panel__warning">Это действие необратимо!</p>
+                    <p class="confirm-panel__question">Удалить пост</p>
+                    <p class="confirm-panel__target">«{{ post.title }}»?</p>
+                    <div class="confirm-panel__actions">
+                        <form method="post">
+                            {% csrf_token %}
+                            <button type="submit" class="btn-pixel btn-pixel--danger">Удалить</button>
+                        </form>
+                        <a href="{% url 'posts:detail' post.pk %}" class="btn-pixel">Отмена</a>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

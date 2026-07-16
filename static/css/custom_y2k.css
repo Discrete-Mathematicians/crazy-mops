@@ -17,6 +17,7 @@
     --y2k-border-strong: #6B5BC7;
     --y2k-accent-pink: #d4537e;
     --y2k-accent-purple: #7a5fc0;
+    --y2k-accent-purple-light: #d8d0ec;
     --y2k-panel-yellow: #fdf7d4;
     --y2k-panel-pink: #fbe3ec;
     --y2k-panel-paper: #fffdf6;
@@ -139,6 +140,10 @@ footer {
 
 .layout-3col--single main {
     grid-column: 1 / -1;
+}
+
+main {
+    padding-bottom: var(--space-4);
 }
 
 /* === КОМПОНЕНТЫ === */
@@ -525,6 +530,26 @@ footer {
             100% calc(100% - var(--step)), calc(100% - var(--step)) calc(100% - var(--step)),
             calc(100% - var(--step)) 100%, var(--step) 100%,
             var(--step) calc(100% - var(--step)), 0 calc(100% - var(--step)));
+}
+
+.page-strip-flat {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 6px 12px;
+    margin-bottom: var(--space-3);
+    font-family: 'Pixelify Sans', monospace;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--y2k-input-bg);
+    background: var(--y2k-accent-purple);
+}
+
+.page-strip__count {
+    font-size: 0.9rem;
+    letter-spacing: normal;
+    text-transform: none;
+    opacity: 0.85;
 }
 
 .page-strip__title::before {
@@ -1002,6 +1027,49 @@ footer {
     margin-bottom: var(--space-1);
 }
 
+.form-field {
+    font-family: 'Pixelify Sans', monospace;
+    color: var(--y2k-panel-header-text);
+    font-size: 1rem;
+    margin-bottom: var(--space-1);
+}
+
+/* --- логин/регистрация --- */
+.auth-narrow {
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+.auth-narrow .panel-body {
+    text-align: left;
+}
+
+.auth-narrow .btn-pixel {
+    display: block;
+    width: 100%;
+}
+
+.auth-narrow form+.auth-alt {
+    margin-top: var(--space-3);
+    margin-bottom: 0;
+}
+
+.auth-narrow .text-center {
+    margin-top: var(--space-3);
+}
+
+.auth-alt {
+    font-size: 0.85rem;
+    text-align: center;
+    color: var(--y2k-text);
+    font-family: 'Pixelify Sans', monospace;
+}
+
+/* --- Ошибка валидации на самом поле --- */
+.panel-body input.is-invalid {
+    border-color: var(--y2k-error);
+}
+
 .form-required {
     color: var(--y2k-error);
 }
@@ -1340,6 +1408,98 @@ footer {
     text-decoration: none;
 }
 
+.form-row {
+    display: flex;
+    gap: var(--space-2);
+}
+
+.form-row .form-field {
+    flex: 1;
+}
+
+.pet-form__submit-row {
+    display: flex;
+    justify-content: flex-end;
+}
+
+/* --- Дроппбокс для авы --- */
+.dropzone-square {
+    aspect-ratio: 1 / 1;
+    max-width: 200px;
+    border: 2px dashed var(--y2k-accent-purple);
+    background: var(--y2k-dropzone-bg);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-2);
+    position: relative;
+    cursor: pointer;
+    text-align: center;
+    padding: var(--space-3);
+    box-sizing: border-box;
+    margin: 0 auto var(--space-3);
+}
+
+.dropzone-square:hover {
+    border-color: var(--y2k-border-strong);
+    background: #eee5fc;
+}
+
+.dropzone-square__placeholder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-2);
+}
+
+.dropzone-square__icon {
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--y2k-accent-purple);
+}
+
+.dropzone-square__icon svg {
+    width: 100%;
+    height: 100%;
+    stroke: currentcolor;
+    fill: none;
+    stroke-width: 2;
+    stroke-linecap: square;
+    stroke-linejoin: miter;
+}
+
+.dropzone-square__title {
+    font-family: 'Pixelify Sans', monospace;
+    color: var(--y2k-panel-header-text);
+    font-size: 0.85rem;
+    margin: 0;
+}
+
+.dropzone-square__caption {
+    font-size: 0.75rem;
+    color: var(--y2k-caption);
+    margin: 0;
+}
+
+.dropzone-square__preview {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.dropzone-square__input {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    cursor: pointer;
+}
+
 /* === СТРАНИЧНЫй === */
 
 /* --- Логин --- */
@@ -1383,51 +1543,118 @@ footer {
 /* --- Поиск --- */
 .search-form {
     display: flex;
-    flex-wrap: wrap;
-    gap: 12px;
     align-items: center;
+    gap: var(--space-2);
+    flex-wrap: wrap;
 }
 
-.search-form input[type="text"] {
-    background: var(--y2k-input-bg);
-    border: 1px solid var(--y2k-border);
-    border-radius: 0;
-    padding: 6px 10px;
-    color: var(--y2k-text);
-}
-
-.search-form input[type="text"]::placeholder {
-    color: var(--y2k-placeholder);
+.search-form input[type='text'] {
+    flex: 1;
+    min-width: 180px;
 }
 
 .search-form__switch {
     display: flex;
-    gap: 12px;
-    font-family: 'Pixelify Sans', sans-serif;
+    gap: var(--space-3);
+    font-family: 'Pixelify Sans', monospace;
+    font-size: 0.85rem;
+    white-space: nowrap;
+    color: var(--y2k-panel-header-text);
+}
+
+.search-form__switch label {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    cursor: pointer;
+}
+
+.search-form .btn-pixel {
+    margin-left: auto;
 }
 
 .search-results {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 16px;
-    margin-top: 16px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-3);
+    margin-top: var(--space-3);
 }
 
+.search-card {
+    aspect-ratio: 1 / 1;
+    display: flex;
+    background: var(--y2k-accent-purple-light);
+}
+
+.search-card .panel-body {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: var(--space-3);
+}
+
+.search-card__link {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    color: var(--y2k-text);
+    width: 100%;
+}
+
+.search-card__link:hover .search-card__name {
+    text-decoration: underline;
+}
+
+.search-card__avatar {
+    width: 168px;
+    height: 168px;
+    object-fit: cover;
+    border: 2px solid var(--y2k-border);
+    image-rendering: pixelated;
+    flex-shrink: 0;
+}
+
+.search-card__name {
+    font-family: 'Pixelify Sans', monospace;
+    color: var(--y2k-panel-header-text);
+    font-size: 0.95rem;
+    text-align: center;
+    overflow-wrap: break-word;
+    max-width: 100%;
+}
+
+.search-card__city {
+    font-size: 0.8rem;
+    color: var(--y2k-caption);
+    text-align: center;
+}
+
+/* --- Пагинатор поиска --- */
 .search-pagination {
     display: flex;
-    gap: 16px;
+    justify-content: center;
     align-items: center;
-    margin-top: 16px;
-    font-family: 'Pixelify Sans', sans-serif;
-}
-
-.search-pagination a {
-    color: var(--y2k-link);
+    gap: var(--space-3);
+    margin-top: var(--space-3);
+    font-family: 'Pixelify Sans', monospace;
+    font-size: 0.85rem;
 }
 
 .search-empty {
+    text-align: center;
     color: var(--y2k-caption);
-    font-style: italic;
+    padding: var(--space-3) 0;
+    margin: var(--space-3) 0 0;
+}
+
+.search-card__sex {
+    font-size: 0.8rem;
+    color: var(--y2k-caption);
+    text-align: center;
+    text-decoration: none;
 }
 
 /* --- Виджет календаря дней рождения --- */
@@ -1534,4 +1761,70 @@ footer {
 .feed-pagination span {
     color: var(--y2k-caption);
     white-space: nowrap;
+}
+
+/* --- Список постов по тегу --- */
+.tag-posts {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+}
+
+.tag-posts-empty {
+    background: var(--y2k-panel-paper);
+    border: var(--border-w) solid var(--y2k-border-strong);
+    text-align: center;
+    color: var(--y2k-caption);
+    padding: var(--space-4);
+}
+
+/* --- подтверждение удаления --- */
+.confirm-panel {
+    max-width: 440px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.confirm-panel__warning {
+    color: var(--y2k-error);
+    font-size: 0.95rem;
+    margin: 0 0 var(--space-1);
+    font-family: 'Pixelify Sans', sans-serif;
+}
+
+.confirm-panel__question {
+    margin: 0;
+    font-family: 'Pixelify Sans', sans-serif;
+}
+
+.confirm-panel__target {
+    font-family: 'Pixelify Sans', monospace;
+    color: var(--y2k-panel-header-text);
+    font-size: 1.1rem;
+    margin: 0 0 var(--space-3);
+}
+
+.confirm-panel__actions {
+    display: flex;
+    gap: var(--space-2);
+    justify-content: center;
+}
+
+.confirm-panel__actions form {
+    flex: 1;
+}
+
+.confirm-panel__actions .btn-pixel {
+    flex: 1;
+    width: 100%;
+}
+
+.btn-pixel--danger {
+    background: var(--y2k-btn-red);
+    color: var(--y2k-btn-red-text);
+    border-color: var(--y2k-btn-red-border);
+}
+
+.btn-pixel--danger:hover {
+    background: var(--y2k-btn-red-hover);
 }

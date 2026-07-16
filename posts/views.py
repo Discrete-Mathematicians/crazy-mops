@@ -108,6 +108,16 @@ class PostsByTagView(ListView):
         return Post.objects.filter(tags__name=self.kwargs["tag"]).order_by("-created_at")
 
     def get_context_data(self, **kwargs):
+        def posts_search_lable(count, one, few, many):
+            if count % 10 == 1 and count % 100 != 11:
+                return one
+            if 2 <= count % 10 <= 4 and not (12 <= count % 100 <= 14):
+                return few
+            return many
+
+        count = self.object_list.count()
+
         ctx = super().get_context_data(**kwargs)
+        ctx["posts_count_label"] = f'{count} {posts_search_lable(count, "пост", "поста", "постов")}'
         ctx["tag_name"] = self.kwargs["tag"]
         return ctx

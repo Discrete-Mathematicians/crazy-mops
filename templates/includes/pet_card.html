@@ -1,17 +1,21 @@
-{% load static %}
 {# Карточка питомца в списке #}
-<a href="{% url 'pets:detail' pet.pk %}" class="pet-card">
-    <span class="pet-card-header">
-        {{ pet.name }}
-        {% if pet.sex is not None %}<span class="pet-card-sex">{{ pet.sex_icon }}</span>{% endif %}
-    </span>
-    {% if pet.avatar %}
-        <img src="{{ pet.avatar.url }}"
-             alt="{{ pet.name }}"
-             class="pet-card-avatar">
-    {% else %}
-        <img src="{% static 'img/default_pet_avatar.png' %}"
-             alt="{{ pet.name }}"
-             class="pet-card-avatar">
-    {% endif %}
-</a>
+{% load static %}
+<div class="flat-panel search-card">
+    <div class="panel-body">
+        <a href="{% url 'pets:detail' pet.pk %}" class="search-card__link">
+            {% if pet.avatar %}
+                <img src="{{ pet.avatar.url }}"
+                     alt="{{ pet.name }}"
+                     class="search-card__avatar">
+            {% else %}
+                <img src="{% static 'img/default_pet_avatar.png' %}"
+                     alt="{{ pet.name }}"
+                     class="search-card__avatar">
+            {% endif %}
+            <span class="search-card__name">{{ pet.name }}</span>
+            {% if pet.sex is not None %}
+                <span class="search-card__sex">{{ pet.sex_icon }}</span>
+            {% endif %}
+        </a>
+    </div>
+</div>

@@ -6,31 +6,31 @@
     </aside>
 {% endblock left_sidebar %}
 {% block content %}
-    <div class="pixel-panel search-panel">
-        <div class="panel-frame">
-            <div class="panel-header">ПОИСК</div>
-            <div class="panel-body">
-                <form method="get" action="{% url 'search:search' %}" class="search-form">
-                    <input type="text" name="q" value="{{ q }}" placeholder="Введите имя...">
-                    <div class="search-form__switch">
-                        <label>
-                            <input type="radio"
-                                   name="type"
-                                   value="owners"
-                                   {% if search_type == 'owners' %}checked{% endif %}>
-                            Владельцы
-                        </label>
-                        <label>
-                            <input type="radio"
-                                   name="type"
-                                   value="pets"
-                                   {% if search_type == 'pets' %}checked{% endif %}>
-                            Питомцы
-                        </label>
-                    </div>
-                    <button type="submit" class="btn-pixel">Искать</button>
-                </form>
-            </div>
+    <div class="page-strip page-strip-falt">
+        <span class="page-strip__title">Поиск</span>
+    </div>
+    <div class="flat-panel">
+        <div class="panel-body">
+            <form method="get" action="{% url 'search:search' %}" class="search-form">
+                <input type="text" name="q" value="{{ q }}" placeholder="Введите имя...">
+                <div class="search-form__switch">
+                    <label>
+                        <input type="radio"
+                               name="type"
+                               value="owners"
+                               {% if search_type == 'owners' %}checked{% endif %}>
+                        Владельцы
+                    </label>
+                    <label>
+                        <input type="radio"
+                               name="type"
+                               value="pets"
+                               {% if search_type == 'pets' %}checked{% endif %}>
+                        Питомцы
+                    </label>
+                </div>
+                <button type="submit" class="btn-pixel">Искать</button>
+            </form>
         </div>
     </div>
     {% if searched %}
