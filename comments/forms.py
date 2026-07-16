@@ -26,10 +26,12 @@ class CommentForm(forms.ModelForm):
         model = Comment
         fields = ("description",)
         widgets = {
-            "description": forms.Textarea(attrs={
-                "rows": 3,
-                "placeholder": "напиши что думаешь...",
-            }),
+            "description": forms.Textarea(
+                attrs={
+                    "rows": 3,
+                    "placeholder": "напиши что думаешь...",
+                }
+            ),
         }
 
     def clean_description(self):
