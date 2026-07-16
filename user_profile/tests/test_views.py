@@ -46,11 +46,6 @@ class ProfilePetsListTests(TestCase):
         actual = list(response.context["pets"])
         self.assertEqual(actual, [])
 
-    def test_no_pets_shows_placeholder_text(self):
-        response = self.client.get(reverse("profiles:detail", args=[self.owner.pk]))
-
-        self.assertContains(response, "Питомцев пока нет")
-
 
 class ProfileCanManageTests(TestCase):
     """Флаг can_manage: кто видит владельческие кнопки."""

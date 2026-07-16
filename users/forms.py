@@ -16,4 +16,4 @@ class ProfileEditForm(UserChangeForm):
 
     class Meta:
         model = User
-        fields = ("display_name", "first_name", "last_name", "email", "avatar")
+        fields = ("display_name", "first_name", "last_name", "email", "avatar", "pronouns", "gender", "city", "info")

@@ -38,6 +38,9 @@
     --y2k-placeholder: #9a8fbd;
     --y2k-input-bg: #fff;
     --y2k-overlay: rgb(43 36 64 / 55%);
+    --y2k-panel-header-yellow: #f3e29a;
+    --y2k-comment-bg: #f6f1ff;
+    --y2k-comment-border: #d9cdf3;
     --space-1: 4px;
     --space-2: 8px;
     --space-3: 12px;
@@ -132,6 +135,10 @@ footer {
     display: flex !important;
     flex-direction: column;
     gap: var(--space-3);
+}
+
+.layout-3col--single main {
+    grid-column: 1 / -1;
 }
 
 /* === КОМПОНЕНТЫ === */
@@ -307,7 +314,7 @@ footer {
     content: '\25B8';
 
     /* треугольный буллет */
-    color: var(--y2k-accent-pink);
+    color: var(--y2k-accent-purple);
     margin-right: 6px;
 }
 
@@ -531,94 +538,315 @@ footer {
     text-transform: lowercase;
 }
 
-/* === СТРАНИЧНЫй === */
-
-/* --- Логин --- */
-.login-row {
-    padding: 50px 0 0;
+.panel--yellow .panel-header {
+    background: var(--y2k-panel-header-yellow);
+    color: var(--y2k-btn-yellow-text);
 }
 
-.login-narrow {
-    max-width: 440px;
-    margin: 0 auto;
+.post-detail__meta {
+    display: flex;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: var(--space-1) var(--space-2);
+    margin-bottom: var(--space-2);
+    font-size: 0.9rem;
 }
 
-.login-alt {
-    font-size: 0.85rem;
+.post-detail__pet {
+    font-family: 'Pixelify Sans', monospace;
+    font-weight: 700;
+    color: var(--y2k-panel-header-text);
 }
 
-.login-alt a {
-    color: var(--y2k-link);
+.post-detail__actions {
+    margin-left: auto;
+    display: flex;
+    gap: var(--space-2);
 }
 
-.login-caption {
-    font-size: 0.75rem;
-    color: var(--y2k-caption);
+.post-detail__actions a {
+    font-family: 'Pixelify Sans', monospace;
+    font-size: 1.1rem;
+    color: var(--y2k-accent-purple);
 }
 
-/* --- Авторизация --- */
-.signup-row {
-    padding: 50px 0 0;
+.post-detail__actions a.is-danger {
+    color: var(--y2k-error);
 }
 
-.signup {
-    max-width: 440px;
-    margin: 0 auto;
+/* --- медиагалерея сетка 2 колонки, видео и нечетный хвост - на всю ширину --- */
+.post-detail__media {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-2);
+    margin: var(--space-2) 0 var(--space-3);
 }
 
-/* --- Изменение профиля --- */
-.edit-profile-row {
-    padding: 50px 0 0;
+.post-detail__media-item {
+    display: block;
+    border: 1px solid var(--y2k-border);
+    overflow: hidden;
+    background: none;
+    padding: 0;
+    cursor: zoom-in;
+    width: auto;
+    height: auto;
 }
 
-/* --- Поиск --- */
-.search-form {
+.post-detail__media-item img {
+    display: block;
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+}
+
+.post-detail__media-item video {
+    display: block;
+    width: 100%;
+    max-height: 360px;
+    background: var(--y2k-text);
+    grid-column: 1 / -1;
+}
+
+/* нечетный хвост картинок - последняя тянется на всю ширину */
+.post-detail__media-item:last-child:nth-child(odd):not(:has(video)) {
+    grid-column: 1 / -1;
+}
+
+.post-detail__media-item:last-child:nth-child(odd) img {
+    aspect-ratio: 2 / 1;
+}
+
+.post-detail__text {
+    margin: 0 0 var(--space-2);
+    line-height: 1.6;
+}
+
+.post-detail__tags {
     display: flex;
     flex-wrap: wrap;
-    gap: 12px;
-    align-items: center;
+    gap: var(--space-2);
+    margin-bottom: var(--space-2);
+    font-family: 'Pixelify Sans', monospace;
+    font-size: 0.9rem;
 }
 
-.search-form input[type="text"] {
+/* подвал поста линия-разделитель перед реакциями */
+.post-detail__reactions {
+    border-top: 2px dashed var(--y2k-border);
+    padding-top: var(--space-1);
+}
+
+/* --- форма нового комментария --- */
+.comment-form {
+    width: 100%;
+    display: flex;
+    gap: var(--space-2);
+    margin-bottom: var(--space-3);
+    align-items: stretch;
+    box-sizing: border-box;
+}
+
+.comment-form textarea,
+.comment-form input[type='text'] {
+    flex: 1;
+}
+
+/* --- Лайтбокс --- */
+.lightbox {
+    border: 2px solid var(--y2k-border-strong);
+    background: var(--y2k-text);
+    padding: 0;
+    width: min(90vw, 800px);
+    max-height: 90vh;
+    overflow: hidden;
+}
+
+.lightbox::backdrop {
+    background: rgb(0 0 0 / 70%);
+}
+
+.lightbox__image {
+    display: block;
+    width: 100%;
+    max-height: 85vh;
+    object-fit: contain;
+}
+
+.lightbox__close {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    width: 32px;
+    height: 32px;
+    font-size: 1.3rem;
+    line-height: 1;
+    color: var(--y2k-text);
+    background: var(--y2k-input-bg);
+    border: 1px solid var(--y2k-border-strong);
+    border-radius: 0;
+    cursor: pointer;
+    z-index: 1;
+}
+
+/* --- Свёрнутая reply форма --- */
+.comment-item__reply-form.is-collapsed {
+    display: none;
+}
+
+.post-detail__title {
+    font-family: 'Pixelify Sans', monospace;
+    font-size: 1.4rem;
+    color: var(--y2k-panel-header-text);
+    margin: 0 0 var(--space-2);
+}
+
+/* --- Дерево комментариев --- */
+.comment-item__actions {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+}
+
+.comment-item__reply-textarea,
+.comment-item__reply-media-input {
+    width: 100%;
+}
+
+.comment-item__delete-form {
+    display: none;
+}
+
+.comment-item__reply-controls {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    margin-top: var(--space-1);
+}
+
+.comment-item__author {
+    text-decoration: none;
+    font-family: 'Pixelify Sans', monospace;
+    font-weight: 700;
+    color: var(--y2k-panel-header-text);
+}
+
+.comment-item__author:hover {
+    text-decoration: underline;
+}
+
+.comment-item__text {
+    color: var(--y2k-text);
+    margin: var(--space-1) 0;
+    line-height: 1.5;
+}
+
+.comment-item__link-btn {
+    background: none;
+    padding: 0;
+    font-family: 'Pixelify Sans', sans-serif;
+    font-size: 0.85rem;
+    text-decoration: underline;
+    cursor: pointer;
+    color: var(--y2k-accent-purple);
+    border: 0;
+}
+
+.comment-item__link-btn:hover {
+    color: var(--y2k-accent-pink);
+}
+
+.comment-item__link-btn:active {
+    transform: translate(1px, 1px);
+}
+
+.comment-item__link-btn--danger {
+    color: var(--y2k-error);
+}
+
+/* --- comment media --- */
+.comment-form input[type="file"],
+.comment-item__reply-media-input {
+    font-family: 'IBM Plex Sans', sans-serif;
+    color: var(--y2k-text);
+    margin: 0.5rem 0;
+}
+
+.comment-form input[type="file"]::file-selector-button,
+.comment-item__reply-media-input::file-selector-button {
+    font-family: 'Pixelify Sans', sans-serif;
+    background: var(--y2k-panel-yellow, #f5e6a8);
+    border: 1px solid var(--y2k-border);
+    border-radius: 0;
+    padding: 0.25rem 0.75rem;
+    color: var(--y2k-text);
+    cursor: pointer;
+    margin-right: 0.5rem;
+}
+
+.comment-form input[type="file"]::file-selector-button:hover,
+.comment-item__reply-media-input::file-selector-button:hover {
+    background: var(--y2k-btn-yellow-hover, var(--y2k-panel-yellow));
+}
+
+/* --- Виджет реакций --- */
+.reaction-widget {
+    display: flex;
+    gap: 0.5rem;
+    margin: 0.5rem 0;
+}
+
+.reaction-widget__form {
+    display: inline;
+}
+
+.reaction-widget__btn {
     background: var(--y2k-input-bg);
     border: 1px solid var(--y2k-border);
     border-radius: 0;
-    padding: 6px 10px;
-    color: var(--y2k-text);
-}
-
-.search-form input[type="text"]::placeholder {
-    color: var(--y2k-placeholder);
-}
-
-.search-form__switch {
-    display: flex;
-    gap: 12px;
-    font-family: 'Pixelify Sans', sans-serif;
-}
-
-.search-results {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 16px;
-    margin-top: 16px;
-}
-
-.search-pagination {
-    display: flex;
-    gap: 16px;
+    padding: 0.15rem 0.5rem;
+    font-size: 1rem;
+    cursor: pointer;
+    display: inline-flex;
     align-items: center;
-    margin-top: 16px;
+    gap: 0.25rem;
+}
+
+.reaction-widget__btn:hover {
+    background: var(--y2k-panel-header-bg);
+}
+
+.reaction-widget__btn:active {
+    transform: translate(1px, 1px);
+}
+
+.reaction-widget__btn--active {
+    background: var(--y2k-panel-yellow);
+    border-color: var(--y2k-border-strong);
+}
+
+.reaction-widget__btn--readonly {
+    cursor: default;
+}
+
+.reaction-widget__btn--readonly:hover {
+    background: var(--y2k-input-bg);
+}
+
+.reaction-widget__count {
     font-family: 'Pixelify Sans', sans-serif;
-}
-
-.search-pagination a {
-    color: var(--y2k-link);
-}
-
-.search-empty {
+    font-size: 0.8rem;
     color: var(--y2k-caption);
-    font-style: italic;
+}
+
+.post-detail-narrow {
+    max-width: 780px;
+    margin: 0 auto;
+}
+
+.post-detail-narrow>.pixel-panel,
+.post-detail-narrow>.flat-panel {
+    margin-bottom: var(--space-3);
 }
 
 /* --- Посты --- */
@@ -750,6 +978,458 @@ footer {
     color: var(--y2k-accent-purple);
 }
 
+.comment-form__row {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+    align-items: flex-start;
+}
+
+.comment-form__row textarea {
+    width: 100%;
+    min-height: 80px;
+}
+
+.comment-form .form-field {
+    margin-bottom: var(--space-2);
+}
+
+.comment-form .form-field label {
+    display: block;
+    font-family: 'Pixelify Sans', monospace;
+    color: var(--y2k-panel-header-text);
+    margin-bottom: var(--space-1);
+}
+
+.form-required {
+    color: var(--y2k-error);
+}
+
+.comment-form .btn-pixel {
+    margin-top: var(--space-1);
+    flex-shrink: 0;
+}
+
+.comment-item {
+    background: var(--y2k-comment-bg);
+    border: 1px solid var(--y2k-comment-border);
+    padding: var(--space-2) var(--space-3);
+    margin-bottom: var(--space-2);
+    font-size: 0.9rem;
+}
+
+.comment-item__date {
+    color: var(--y2k-caption);
+    font-size: 0.8rem;
+    margin-left: var(--space-2);
+}
+
+.comment-item__media {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin: 0.5rem 0;
+}
+
+.comment-item__media-item {
+    display: block;
+    width: 96px;
+    height: 96px;
+    padding: 0;
+    background: none;
+    border: 1px solid var(--y2k-border);
+    overflow: hidden;
+    cursor: zoom-in;
+}
+
+.comment-item__media-item img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.comment-item__media-item--video {
+    width: auto;
+    max-width: 240px;
+    height: auto;
+    cursor: auto;
+    border: 1px solid var(--y2k-border);
+}
+
+.comment-item__reply-form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+    margin-top: var(--space-2);
+}
+
+.comment-item__reply-textarea {
+    width: 100%;
+    min-height: 60px;
+    padding: var(--space-1) var(--space-2);
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 0.9rem;
+    border: 1px solid var(--y2k-border);
+    border-radius: 0;
+    background: var(--y2k-input-bg);
+    resize: vertical;
+}
+
+.comment-item__reply-submit {
+    align-self: flex-start;
+}
+
+/* --- вложенные ответы --- */
+.comment-item__replies {
+    border-left: 2px dashed var(--y2k-border);
+    margin: var(--space-2) 0 0 var(--space-2);
+    padding-left: var(--space-3);
+}
+
+.comment-item__replies .comment-item {
+    background: var(--y2k-comment-bg);
+}
+
+.comment-item__replies .comment-item:last-child {
+    margin-bottom: 0;
+}
+
+.comment-item__footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    margin-top: var(--space-1);
+}
+
+/* --- Страница питомца --- */
+.pet-detail-narrow {
+    max-width: 780px;
+    margin: 0 auto;
+}
+
+.pet-detail__header {
+    display: flex;
+    gap: var(--space-4);
+    flex-wrap: wrap;
+    margin-bottom: var(--space-3);
+}
+
+.pet-detail__photo {
+    width: 148px;
+    height: 148px;
+    object-fit: cover;
+    border: 2px solid var(--y2k-accent-purple);
+    flex-shrink: 0;
+}
+
+.pet-detail__info {
+    flex: 1;
+    min-width: 200px;
+}
+
+.pet-detail__name {
+    font-family: 'Pixelify Sans', monospace;
+    font-size: 1.6rem;
+    color: var(--y2k-panel-header-text);
+    margin: 0 0 var(--space-1);
+    display: flex;
+    align-items: center;
+    gap: var(--space-1);
+}
+
+.pet-detail__owner {
+    font-family: 'Pixelify Sans', monospace;
+    color: var(--y2k-accent-purple);
+    font-size: 0.9rem;
+    margin-bottom: var(--space-3);
+}
+
+.pet-detail__facts {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: var(--space-1) var(--space-3);
+    font-size: 0.9rem;
+}
+
+.pet-detail__fact-label {
+    font-family: 'Pixelify Sans', monospace;
+    color: var(--y2k-panel-header-text);
+}
+
+.pet-detail__fact-value {
+    color: var(--y2k-text);
+}
+
+.pet-detail__actions {
+    display: flex;
+    gap: var(--space-2);
+    flex-wrap: wrap;
+    margin-top: var(--space-3);
+}
+
+/* --- Посты питомца --- */
+.pet-posts {
+    margin-top: var(--space-3);
+}
+
+.pet-posts__title {
+    font-family: 'Pixelify Sans', monospace;
+    font-size: 1.2rem;
+    color: var(--y2k-panel-header-text);
+    margin: 0 0 var(--space-2);
+}
+
+/* --- Empty state в профиле питомца и пользователя --- */
+.empty-state {
+    text-align: center;
+    color: var(--y2k-caption);
+    padding: var(--space-4) var(--space-3);
+    grid-column: 1 / -1;
+}
+
+/* --- Страница профиля --- */
+.profile-header {
+    position: relative;
+    display: flex;
+    gap: var(--space-3);
+    align-items: flex-start;
+    margin-bottom: var(--space-3);
+}
+
+.profile-header__edit {
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+.profile-header__avatar {
+    width: 128px;
+    height: 128px;
+    object-fit: cover;
+    border: 2px solid var(--y2k-border);
+    flex-shrink: 0;
+}
+
+.profile-header__info {
+    flex: 1;
+}
+
+.profile-header__name {
+    font-family: 'Pixelify Sans', monospace;
+    font-size: 1.3rem;
+    color: var(--y2k-panel-header-text);
+    margin: 0 0 2px;
+}
+
+.profile-header__nick {
+    font-family: 'Pixelify Sans', monospace;
+    color: var(--y2k-panel-header-text);
+    font-size: 0.95rem;
+    margin: 0 0 var(--space-2);
+}
+
+.profile-header__facts {
+    color: var(--y2k-caption);
+    font-size: 0.85rem;
+    margin: 0 0 var(--space-2);
+}
+
+.profile-header__facts span+span::before {
+    content: '\00b7';
+    margin: 0 4px;
+}
+
+.profile-header__bio {
+    color: var(--y2k-text);
+    line-height: 1.5;
+    margin: 0 0 var(--space-2);
+}
+
+.profile-pets__title {
+    font-family: 'Pixelify Sans', monospace;
+    font-size: 1.1rem;
+    color: var(--y2k-panel-header-text);
+    margin: var(--space-3) 0 var(--space-2);
+}
+
+/* --- Сетка карточек питомцев на профиле в 2 столбца --- */
+.pet-list {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-auto-rows: 1fr;
+    gap: var(--space-3);
+}
+
+.pet-card {
+    position: relative;
+    display: block;
+    aspect-ratio: 1 / 1;
+    background: var(--y2k-panel-paper);
+    border: 2px solid var(--y2k-border-strong);
+    overflow: hidden;
+}
+
+.pet-card-header {
+    position: absolute;
+    inset: auto 0 0;
+    display: flex;
+    align-items: baseline;
+    gap: 6px;
+    font-family: 'Pixelify Sans', monospace;
+    background: var(--y2k-panel-header-bg);
+    color: var(--y2k-panel-header-text);
+    padding: var(--space-1) var(--space-2);
+    font-size: 0.9rem;
+    text-align: center;
+}
+
+.pet-card-avatar {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.pet-card-sex {
+    color: var(--y2k-caption);
+    font-size: 0.85rem;
+}
+
+.pet-card--add {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    aspect-ratio: 1 / 1;
+    padding: 0;
+}
+
+.pet-card--add::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border: 2px dashed var(--y2k-accent-purple);
+}
+
+.pet-card-add-icon {
+    font-family: 'Pixelify Sans', monospace;
+    font-size: 2.2rem;
+    color: var(--y2k-accent-purple);
+    line-height: 1;
+    z-index: 1;
+}
+
+.pet-card--add .pet-card-name {
+    font-family: 'Pixelify Sans', monospace;
+    color: var(--y2k-accent-purple);
+    z-index: 1;
+}
+
+.btn-mini {
+    font-size: 0.8rem;
+    padding: 2px 5px;
+}
+
+.pet-card--add,
+.pet-card {
+    text-decoration: none;
+}
+
+/* === СТРАНИЧНЫй === */
+
+/* --- Логин --- */
+.login-row {
+    padding: 50px 0 0;
+}
+
+.login-narrow {
+    max-width: 440px;
+    margin: 0 auto;
+}
+
+.login-alt {
+    font-size: 0.85rem;
+}
+
+.login-alt a {
+    color: var(--y2k-link);
+}
+
+.login-caption {
+    font-size: 0.75rem;
+    color: var(--y2k-caption);
+}
+
+/* --- Авторизация --- */
+.signup-row {
+    padding: 50px 0 0;
+}
+
+.signup {
+    max-width: 440px;
+    margin: 0 auto;
+}
+
+/* --- Изменение профиля --- */
+.edit-profile-row {
+    padding: 50px 0 0;
+}
+
+/* --- Поиск --- */
+.search-form {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    align-items: center;
+}
+
+.search-form input[type="text"] {
+    background: var(--y2k-input-bg);
+    border: 1px solid var(--y2k-border);
+    border-radius: 0;
+    padding: 6px 10px;
+    color: var(--y2k-text);
+}
+
+.search-form input[type="text"]::placeholder {
+    color: var(--y2k-placeholder);
+}
+
+.search-form__switch {
+    display: flex;
+    gap: 12px;
+    font-family: 'Pixelify Sans', sans-serif;
+}
+
+.search-results {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin-top: 16px;
+}
+
+.search-pagination {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+    margin-top: 16px;
+    font-family: 'Pixelify Sans', sans-serif;
+}
+
+.search-pagination a {
+    color: var(--y2k-link);
+}
+
+.search-empty {
+    color: var(--y2k-caption);
+    font-style: italic;
+}
+
 /* --- Виджет календаря дней рождения --- */
 .birthday-widget__item {
     display: flex;
@@ -854,165 +1534,4 @@ footer {
 .feed-pagination span {
     color: var(--y2k-caption);
     white-space: nowrap;
-}
-
-/* --- Дерево комментариев --- */
-.comment-item__actions {
-    display: flex;
-    flex-direction: column;
-    gap: 0.35rem;
-}
-
-.comment-item__reply-form {
-    display: flex;
-    flex-direction: column;
-    gap: 0.35rem;
-}
-
-.comment-item__reply-textarea,
-.comment-item__reply-media-input {
-    width: 100%;
-}
-
-.comment-item__delete-form {
-    display: none;
-}
-
-.comment-item__reply-controls {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    justify-content: flex-end;
-}
-
-.comment-item__author {
-    font-family: 'Pixelify Sans', sans-serif;
-    font-weight: 700;
-}
-
-.comment-item__date {
-    color: var(--y2k-caption);
-    font-size: 0.85rem;
-    margin-left: 0.5rem;
-}
-
-.comment-item__text {
-    color: var(--y2k-text);
-    margin: 0.25rem 0;
-}
-
-.comment-item__link-btn {
-    background: none;
-    border: none;
-    padding: 0;
-    font-family: 'Pixelify Sans', sans-serif;
-    font-size: 0.85rem;
-    color: var(--y2k-link);
-    text-decoration: underline;
-    cursor: pointer;
-}
-
-.comment-item__link-btn:hover {
-    color: var(--y2k-accent-pink);
-}
-
-.comment-item__link-btn:active {
-    transform: translate(1px, 1px);
-}
-
-.comment-item__link-btn--danger {
-    color: var(--y2k-error);
-}
-
-.comment-item__replies {
-    margin-left: 1rem;
-}
-
-/* --- comment media --- */
-.comment-form input[type="file"],
-.comment-item__reply-media-input {
-    font-family: 'IBM Plex Sans', sans-serif;
-    color: var(--y2k-text);
-    margin: 0.5rem 0;
-}
-
-.comment-form input[type="file"]::file-selector-button,
-.comment-item__reply-media-input::file-selector-button {
-    font-family: 'Pixelify Sans', sans-serif;
-    background: var(--y2k-panel-yellow, #f5e6a8);
-    border: 1px solid var(--y2k-border);
-    border-radius: 0;
-    padding: 0.25rem 0.75rem;
-    color: var(--y2k-text);
-    cursor: pointer;
-    margin-right: 0.5rem;
-}
-
-.comment-form input[type="file"]::file-selector-button:hover,
-.comment-item__reply-media-input::file-selector-button:hover {
-    background: var(--y2k-btn-yellow-hover, var(--y2k-panel-yellow));
-}
-
-.comment-item__media {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-    margin: 0.5rem 0;
-}
-
-.comment-item__media-item {
-    max-width: 160px;
-    max-height: 160px;
-    object-fit: cover;
-    border: 1px solid var(--y2k-border);
-}
-
-/* --- Виджет реакций --- */
-.reaction-widget {
-    display: flex;
-    gap: 0.5rem;
-    margin: 0.5rem 0;
-}
-
-.reaction-widget__form {
-    display: inline;
-}
-
-.reaction-widget__btn {
-    background: var(--y2k-input-bg);
-    border: 1px solid var(--y2k-border);
-    border-radius: 0;
-    padding: 0.15rem 0.5rem;
-    font-size: 1rem;
-    cursor: pointer;
-    display: inline-flex;
-    align-items: center;
-    gap: 0.25rem;
-}
-
-.reaction-widget__btn:hover {
-    background: var(--y2k-panel-header-bg);
-}
-
-.reaction-widget__btn:active {
-    transform: translate(1px, 1px);
-}
-
-.reaction-widget__btn--active {
-    background: var(--y2k-panel-yellow);
-    border-color: var(--y2k-border-strong);
-}
-
-.reaction-widget__btn--readonly {
-    cursor: default;
-}
-
-.reaction-widget__btn--readonly:hover {
-    background: var(--y2k-input-bg);
-}
-
-.reaction-widget__count {
-    font-family: 'Pixelify Sans', sans-serif;
-    font-size: 0.8rem;
-    color: var(--y2k-caption);
 }

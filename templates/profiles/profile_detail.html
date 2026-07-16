@@ -6,34 +6,53 @@
     </aside>
 {% endblock left_sidebar %}
 {% block content %}
-    <div class="row justify-content-center">
-        <div class="col-12 col-md-8 col-lg-6">
-            <div class="flat-panel">
-                <div class="panel-header">{{ profile_user.display_name }}</div>
-                <div class="panel-body">
-                    <img src="{{ profile_user.avatar_url }}"
-                         alt="Аватар"
-                         width="96"
-                         height="96">
-                    <p>{{ profile_user.info }}</p>
-                    {% if can_manage %}
-                        <a href="{% url 'users:profile_edit' %}" class="btn-pixel">Редактировать</a>
-                    {% endif %}
-                    <h2>Питомцы</h2>
-                    <div class="pet-list">
-                        {% for pet in pets %}
-                            {% include "includes/pet_card.html" with pet=pet only %}
-                        {% empty %}
-                            <p>Питомцев пока нет</p>
-                        {% endfor %}
-                        {% if can_manage %}
-                            <a href="{% url 'pets:create' %}"
-                               class="pet-card pet-card--add text-decoration-none">
-                                <span class="pet-card-add-icon">+</span>
-                                <span class="pet-card-name">Добавить питомца</span>
-                            </a>
+    <div class="post-detail-narrow">
+        <div class="flat-panel">
+            <div class="panel-body">
+                <div class="profile-header">
+                    <img class="profile-header__avatar"
+                         src="{{ profile_user.avatar_url }}"
+                         alt="Аватар">
+                    <div class="profile-header__info">
+                        {% with full_name=profile_user.get_full_name %}
+                            {% if full_name %}
+                                <h1 class="profile-header__name">{{ full_name }}</h1>
+                                <p class="profile-header__nick">{{ profile_user.display_name }}</p>
+                            {% else %}
+                                <h1 class="profile-header__name">{{ profile_user.display_name }}</h1>
+                            {% endif %}
+                        {% endwith %}
+                        {% if profile_user.pronouns or profile_user.city %}
+                            <p class="profile-header__facts">
+                                {% if profile_user.pronouns %}<span>{{ profile_user.pronouns }}</span>{% endif %}
+                                {% if profile_user.city %}<span>{{ profile_user.city }}</span>{% endif %}
+                            </p>
+                        {% endif %}
+                        {% if profile_user.info %}
+                            <p class="profile-header__bio">{{ profile_user.info }}</p>
                         {% endif %}
                     </div>
+                    {% if can_manage %}
+                        <a href="{% url 'users:profile_edit' %}" class="btn-pixel btn-mini">Редактировать</a>
+                    {% endif %}
+                </div>
+                <h2 class="profile-pets__title">Питомцы</h2>
+                <div class="pet-list">
+                    {% for pet in pets %}
+                        {% include "includes/pet_card.html" with pet=pet only %}
+                    {% empty %}
+                        {% if not can_manage %}
+                            <div class="empty-state">
+                                <p>У {{ profile_user.display_name }} пока нет питомцев.</p>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                    {% if can_manage %}
+                        <a href="{% url 'pets:create' %}" class="pet-card--add">
+                            <span class="pet-card-add-icon">+</span>
+                            <span class="pet-card-name">Добавить питомца</span>
+                        </a>
+                    {% endif %}
                 </div>
             </div>
         </div>
