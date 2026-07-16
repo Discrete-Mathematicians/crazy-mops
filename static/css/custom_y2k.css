@@ -17,6 +17,7 @@
     --y2k-border-strong: #6B5BC7;
     --y2k-accent-pink: #d4537e;
     --y2k-accent-purple: #7a5fc0;
+    --y2k-accent-purple-light: #d8d0ec;
     --y2k-panel-yellow: #fdf7d4;
     --y2k-panel-pink: #fbe3ec;
     --y2k-panel-paper: #fffdf6;
@@ -139,6 +140,10 @@ footer {
 
 .layout-3col--single main {
     grid-column: 1 / -1;
+}
+
+main {
+    padding-bottom: var(--space-4);
 }
 
 /* === КОМПОНЕНТЫ === */
@@ -525,6 +530,26 @@ footer {
             100% calc(100% - var(--step)), calc(100% - var(--step)) calc(100% - var(--step)),
             calc(100% - var(--step)) 100%, var(--step) 100%,
             var(--step) calc(100% - var(--step)), 0 calc(100% - var(--step)));
+}
+
+.page-strip-flat {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 6px 12px;
+    margin-bottom: var(--space-3);
+    font-family: 'Pixelify Sans', monospace;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--y2k-input-bg);
+    background: var(--y2k-accent-purple);
+}
+
+.page-strip__count {
+    font-size: 0.9rem;
+    letter-spacing: normal;
+    text-transform: none;
+    opacity: 0.85;
 }
 
 .page-strip__title::before {
@@ -1383,51 +1408,118 @@ footer {
 /* --- Поиск --- */
 .search-form {
     display: flex;
-    flex-wrap: wrap;
-    gap: 12px;
     align-items: center;
+    gap: var(--space-2);
+    flex-wrap: wrap;
 }
 
-.search-form input[type="text"] {
-    background: var(--y2k-input-bg);
-    border: 1px solid var(--y2k-border);
-    border-radius: 0;
-    padding: 6px 10px;
-    color: var(--y2k-text);
-}
-
-.search-form input[type="text"]::placeholder {
-    color: var(--y2k-placeholder);
+.search-form input[type='text'] {
+    flex: 1;
+    min-width: 180px;
 }
 
 .search-form__switch {
     display: flex;
-    gap: 12px;
-    font-family: 'Pixelify Sans', sans-serif;
+    gap: var(--space-3);
+    font-family: 'Pixelify Sans', monospace;
+    font-size: 0.85rem;
+    white-space: nowrap;
+    color: var(--y2k-panel-header-text);
+}
+
+.search-form__switch label {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    cursor: pointer;
+}
+
+.search-form .btn-pixel {
+    margin-left: auto;
 }
 
 .search-results {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 16px;
-    margin-top: 16px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-3);
+    margin-top: var(--space-3);
 }
 
+.search-card {
+    aspect-ratio: 1 / 1;
+    display: flex;
+    background: var(--y2k-accent-purple-light);
+}
+
+.search-card .panel-body {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: var(--space-3);
+}
+
+.search-card__link {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    color: var(--y2k-text);
+    width: 100%;
+}
+
+.search-card__link:hover .search-card__name {
+    text-decoration: underline;
+}
+
+.search-card__avatar {
+    width: 168px;
+    height: 168px;
+    object-fit: cover;
+    border: 2px solid var(--y2k-border);
+    image-rendering: pixelated;
+    flex-shrink: 0;
+}
+
+.search-card__name {
+    font-family: 'Pixelify Sans', monospace;
+    color: var(--y2k-panel-header-text);
+    font-size: 0.95rem;
+    text-align: center;
+    overflow-wrap: break-word;
+    max-width: 100%;
+}
+
+.search-card__city {
+    font-size: 0.8rem;
+    color: var(--y2k-caption);
+    text-align: center;
+}
+
+/* --- Пагинатор поиска --- */
 .search-pagination {
     display: flex;
-    gap: 16px;
+    justify-content: center;
     align-items: center;
-    margin-top: 16px;
-    font-family: 'Pixelify Sans', sans-serif;
-}
-
-.search-pagination a {
-    color: var(--y2k-link);
+    gap: var(--space-3);
+    margin-top: var(--space-3);
+    font-family: 'Pixelify Sans', monospace;
+    font-size: 0.85rem;
 }
 
 .search-empty {
+    text-align: center;
     color: var(--y2k-caption);
-    font-style: italic;
+    padding: var(--space-3) 0;
+    margin: var(--space-3) 0 0;
+}
+
+.search-card__sex {
+    font-size: 0.8rem;
+    color: var(--y2k-caption);
+    text-align: center;
+    text-decoration: none;
 }
 
 /* --- Виджет календаря дней рождения --- */
@@ -1534,4 +1626,19 @@ footer {
 .feed-pagination span {
     color: var(--y2k-caption);
     white-space: nowrap;
+}
+
+/* --- Список постов по тегу --- */
+.tag-posts {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+}
+
+.tag-posts-empty {
+    background: var(--y2k-panel-paper);
+    border: var(--border-w) solid var(--y2k-border-strong);
+    text-align: center;
+    color: var(--y2k-caption);
+    padding: var(--space-4);
 }

@@ -1,15 +1,14 @@
 {# Карточка владельца в списке #}
-<div class="pixel-panel search-card">
-    <div class="panel-frame">
-        <div class="panel-body">
-            <a href="{% url 'profiles:detail' user.pk %}">
-                <img src="{{ user.avatar_url }}"
-                     alt="{{ user.display_name }}"
-                     class="search-card__avatar"
-                     width="96"
-                     height="96">
-                <span>{{ user.display_name }}</span>
-            </a>
-        </div>
+<div class="flat-panel search-card">
+    <div class="panel-body">
+        <a href="{% url 'profiles:detail' user.pk %}" class="search-card__link">
+            <img src="{{ user.avatar_url }}"
+                 alt="{{ user.display_name }}"
+                 class="search-card__avatar">
+            <span class="search-card__name">{{ user.display_name }}</span>
+            {% if user.city %}
+                <span class="search-card__city">{{ user.city }}</span>
+            {% endif %}
+        </a>
     </div>
 </div>
