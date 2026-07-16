@@ -16,6 +16,10 @@ class User(AbstractBaseUser, PermissionsMixin):
     last_name = models.CharField("Фамилия", max_length=150, blank=True)
     email = models.EmailField("Email", blank=True)
     avatar = models.ImageField("Аватар", upload_to="avatars/", blank=True)
+    pronouns = models.CharField("Местоимения", max_length=50, blank=True)
+    gender = models.CharField("Пол", max_length=30, blank=True)
+    city = models.CharField("Город", max_length=100, blank=True)
+    info = models.TextField("О себе", blank=True)
     account_type = models.CharField(
         "Тип аккаунта",
         max_length=20,
