@@ -1408,6 +1408,106 @@ main {
     text-decoration: none;
 }
 
+.form-row {
+    display: flex;
+    gap: var(--space-2);
+}
+
+.form-row .form-field {
+    flex: 1;
+}
+
+.pet-form__submit-row {
+    display: flex;
+    justify-content: flex-end;
+}
+
+/* --- Дроппбокс для авы --- */
+.dropzone-square {
+    aspect-ratio: 1 / 1;
+    max-width: 200px;
+    border: 2px dashed var(--y2k-accent-purple);
+    background: var(--y2k-dropzone-bg);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-2);
+    position: relative;
+    cursor: pointer;
+    text-align: center;
+    padding: var(--space-3);
+    box-sizing: border-box;
+    margin: 0 auto var(--space-3);
+}
+
+.dropzone-square:hover {
+    border-color: var(--y2k-border-strong);
+    background: #eee5fc;
+}
+
+.dropzone-square__placeholder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-2);
+}
+
+.dropzone-square__icon {
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--y2k-accent-purple);
+}
+
+.dropzone-square__icon svg {
+    width: 100%;
+    height: 100%;
+    stroke: currentColor;
+    fill: none;
+    stroke-width: 2;
+    stroke-linecap: square;
+    stroke-linejoin: miter;
+}
+
+.dropzone-square__title {
+    font-family: 'Pixelify Sans', monospace;
+    color: var(--y2k-panel-header-text);
+    font-size: 0.85rem;
+    margin: 0;
+}
+
+.dropzone-square__caption {
+    font-size: 0.75rem;
+    color: var(--y2k-caption);
+    margin: 0;
+}
+
+.dropzone-square__preview {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.dropzone-square__preview {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.dropzone-square__input {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    cursor: pointer;
+}
+
 /* === СТРАНИЧНЫй === */
 
 /* --- Логин --- */

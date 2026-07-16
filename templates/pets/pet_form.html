@@ -1,13 +1,97 @@
 {% extends "base.html" %}
-{% comment %}
-  ЗАГЛУШКА. Финальная вёрстка — в sub-issue «Шаблоны приложения pets».
-  Контракт: docs/wiki/contracts/pets.md
-{% endcomment %}
-{% block title %}Карточка питомца — Сумасшедший мопс{% endblock title %}
+{% load static %}
+{% block title %}
+    {% if form.instance.pk %}Редактировать питомца{% else %}Новый питомец{% endif %} — Сумасшедший мопс
+{% endblock title %}
 {% block content %}
-    <form method="post" enctype="multipart/form-data">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Сохранить</button>
-    </form>
+    <div class="post-form-narrow">
+        <div class="flat-panel">
+            <div class="panel-header">{% if form.instance.pk %}Редактировать питомца{% else %}Новый питомец{% endif %}</div>
+            <div class="panel-body">
+                <form method="post" enctype="multipart/form-data" novalidate>
+                    {% csrf_token %}
+                    <label class="dropzone-square">
+                        {{ form.avatar }}
+                        <img class="dropzone-square__preview"
+                             id="avatar-preview"
+                             src="{% if form.instance.avatar %}{{ form.instance.avatar.url }}{% endif %}"
+                             alt=""
+                             {% if not form.instance.avatar %}style="display: none;"{% endif %}>
+                        <span class="dropzone-square__placeholder"
+                              id="avatar-placeholder"
+                              {% if form.instance.avatar %}style="display: none;"{% endif %}>
+                            <span class="dropzone-square__icon">
+                                <svg viewBox="0 0 24 24">
+                                    <path d="M12 3v13M12 3l-5 5M12 3l5 5M4 17v3a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-3" />
+                                </svg>
+                            </span>
+                            <p class="dropzone-square__title">Загрузить фото</p>
+                            <p class="dropzone-square__caption">или перетащите файл</p>
+                        </span>
+                    </label>
+                    {% if form.avatar.errors %}
+                        <div class="form-error">{{ form.avatar.errors }}</div>
+                    {% endif %}
+                    <div class="form-field">
+                        <label for="{{ form.name.id_for_label }}">{{ form.name.label }}</label>
+                        {{ form.name }}
+                        {% if form.name.errors %}
+                            <div class="form-error">{{ form.name.errors }}</div>
+                        {% endif %}
+                    </div>
+                    <div class="form-row">
+                        <div class="form-field">
+                            <label for="{{ form.pet_type.id_for_label }}">{{ form.pet_type.label }}</label>
+                            {{ form.pet_type }}
+                            {% if form.pet_type.errors %}
+                                <div class="form-error">{{ form.pet_type.errors }}</div>
+                            {% endif %}
+                        </div>
+                        <div class="form-field">
+                            <label for="{{ form.sex.id_for_label }}">{{ form.sex.label }}</label>
+                            {{ form.sex }}
+                            {% if form.sex.errors %}
+                                <div class="form-error">{{ form.sex.errors }}</div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="form-field">
+                        <label for="{{ form.breed.id_for_label }}">{{ form.breed.label }}</label>
+                        {{ form.breed }}
+                        {% if form.breed.errors %}
+                            <div class="form-error">{{ form.breed.errors }}</div>
+                        {% endif %}
+                    </div>
+                    <div class="form-field">
+                        <label for="{{ form.birthday.id_for_label }}">{{ form.birthday.label }}</label>
+                        {{ form.birthday }}
+                        {% if form.birthday.errors %}
+                            <div class="form-error">{{ form.birthday.errors }}</div>
+                        {% endif %}
+                    </div>
+                    <div class="form-row">
+                        <div class="form-field">
+                            <label for="{{ form.eye_color.id_for_label }}">{{ form.eye_color.label }}</label>
+                            {{ form.eye_color }}
+                            {% if form.eye_color.errors %}
+                                <div class="form-error">{{ form.eye_color.errors }}</div>
+                            {% endif %}
+                        </div>
+                        <div class="form-field">
+                            <label for="{{ form.coat_color.id_for_label }}">{{ form.coat_color.label }}</label>
+                            {{ form.coat_color }}
+                            {% if form.coat_color.errors %}
+                                <div class="form-error">{{ form.coat_color.errors }}</div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="pet-form__submit-row">
+                        <button type="submit" class="btn-pixel">Сохранить</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script src="{% static 'js/dropzone_preview.js' %}"></script>
+    <script>initSingleDropzone('{{ form.avatar.id_for_label }}', 'avatar-preview', 'avatar-placeholder');</script>
 {% endblock content %}
