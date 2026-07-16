@@ -4,12 +4,14 @@
     </div>
 {% endif %}
 {% for field in form %}
-    <div class="form-field">
-        <label for="{{ field.id_for_label }}">
-            {{ field.label }}{% if field.field.required %} <span class="form-required">*</span>{% endif %}
-        </label>
-        {{ field }}
-        {% if field.help_text %}<div class="form-help">{{ field.help_text }}</div>{% endif %}
-        {% for error in field.errors %}<div class="form-error">{{ error }}</div>{% endfor %}
-    </div>
+    {% if field.name != exclude %}
+        <div class="form-field">
+            <label for="{{ field.id_for_label }}">
+                {{ field.label }}{% if field.field.required %} <span class="form-required">*</span>{% endif %}
+            </label>
+            {{ field }}
+            {% if field.help_text %}<div class="form-help">{{ field.help_text }}</div>{% endif %}
+            {% for error in field.errors %}<div class="form-error">{{ error }}</div>{% endfor %}
+        </div>
+    {% endif %}
 {% endfor %}

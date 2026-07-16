@@ -1,3 +1,4 @@
+from django import forms
 from django.contrib.auth.forms import UserChangeForm, UserCreationForm
 
 from .models import User
@@ -17,3 +18,6 @@ class ProfileEditForm(UserChangeForm):
     class Meta:
         model = User
         fields = ("display_name", "first_name", "last_name", "email", "avatar", "pronouns", "gender", "city", "info")
+        widgets = {
+            "avatar": forms.ClearableFileInput(attrs={"class": "dropzone-square__input"}),
+        }
