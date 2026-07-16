@@ -126,11 +126,14 @@ ER-диаграмма: `docs/ER_diagram.md`
 
 ## Скриншоты
 
-![Главная страница](docs/screenshots/feed.png)
-![Страница поста 1/3](docs/screenshots/post_01.png)
-![Страница поста 2/3](docs/screenshots/post_02.png)
-![Страница поста 3/3](docs/screenshots/post_03.png)
-![Страница питомца](docs/screenshots/pet_profile.png)
+![Главная страница 1/2](docs/screenshots/feed_01.png)
+![Главная страница 2/2](docs/screenshots/feed_02.png)
+![Дерево комментариев](docs/screenshots/comments.png)
+![Профиль питомца](docs/screenshots/pet_profile.png)
+![Профиль пользователя 1/2](docs/screenshots/profile_01.png)
+![Профиль пользователя 2/2](docs/screenshots/profile_02.png)
+![Посты](docs/screenshots/posts.png)
+![Поиск](docs/screenshots/search.png)
 
 ## Видео-демо
 
