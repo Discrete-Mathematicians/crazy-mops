@@ -1,69 +1,70 @@
 {% extends "base.html" %}
 {% load subscription_tags %}
-{% comment %}
-  ЗАГЛУШКА. Финальная вёрстка — в sub-issue «Шаблоны приложения pets».
-  Контракт: docs/wiki/contracts/pets.md
-{% endcomment %}
 {% block title %}{{ pet.name }} — Сумасшедший мопс{% endblock title %}
 {% block content %}
-    <article class="pet-card">
-        <h1>{{ pet.name }}</h1>
-        {% if pet.avatar %}
-            <img src="{{ pet.avatar.url }}"
-                 alt="{{ pet.name }}"
-                 width="200"
-                 height="200">
-        {% endif %}
-        <dl>
-            <dt>Вид</dt>
-            <dd>
-                {{ pet.get_pet_type_display }}
-            </dd>
-            <dt>Порода</dt>
-            <dd>
-                {{ pet.breed|default:"—" }}
-            </dd>
-            <dt>Дата рождения</dt>
-            <dd>
-                {{ pet.birthday|default:"—" }}
-            </dd>
-            <dt>Пол</dt>
-            <dd>
-                {{ pet.get_sex_display|default:"—" }}
-            </dd>
-            <dt>Цвет глаз</dt>
-            <dd>
-                {{ pet.eye_color|default:"—" }}
-            </dd>
-            <dt>Окрас</dt>
-            <dd>
-                {{ pet.coat_color|default:"—" }}
-            </dd>
-        </dl>
-        <section class="pet-posts">
-            <h2>Посты</h2>
+    <div class="pet-detail-narrow">
+        <div class="flat-panel panel--pink">
+            <div class="panel-body">
+                <div class="pet-detail__header">
+                    {% if pet.avatar %}
+                        <img class="pet-detail__photo"
+                             src="{{ pet.avatar.url }}"
+                             alt="{{ pet.name }}">
+                    {% endif %}
+                    <div class="pet-detail__info">
+                        <h1 class="pet-detail__name">
+                            {{ pet.name }}
+                            {% if pet.sex is not None %}<span>{{ pet.sex_icon }}</span>{% endif %}
+                        </h1>
+                        <p class="pet-detail__owner">
+                            хозяин <a href="{% url 'profiles:detail' pet.owner.pk %}">{{ pet.owner.get_full_name|default:pet.owner.display_name }}</a>
+                        </p>
+                        <div class="pet-detail__facts">
+                            <span class="pet-detail__fact-label">Вид</span>
+                            <span class="pet-detail__fact-value">{{ pet.get_pet_type_display }}</span>
+                            <span class="pet-detail__fact-label">Порода</span>
+                            <span class="pet-detail__fact-value">{{ pet.breed|default:"—" }}</span>
+                            <span class="pet-detail__fact-label">Дата рождения</span>
+                            <span class="pet-detail__fact-value">{{ pet.birthday|default:"—" }}</span>
+                            <span class="pet-detail__fact-label">Цвет глаз</span>
+                            <span class="pet-detail__fact-value">{{ pet.eye_color|default:"—" }}</span>
+                            <span class="pet-detail__fact-label">Окрас</span>
+                            <span class="pet-detail__fact-value">{{ pet.coat_color|default:"—" }}</span>
+                        </div>
+                        <div class="pet-detail__actions">
+                            {% if not can_manage %}
+                                {% subscription_button pet user %}
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                {% if can_manage %}
+                    <div class="pet-detail__actions">
+                        <a href="{% url 'pets:edit' pet.pk %}" class="btn-pixel btn-mini">Редактировать</a>
+                        <a href="{% url 'pets:delete' pet.pk %}"
+                           class="btn-pixel btn-pixel--danger btn-mini">Удалить</a>
+                        <a href="{% url 'posts:create' pet.pk %}" class="btn-pixel btn-mini">Создать пост</a>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+        <div class="pet-posts">
+            <h2 class="pet-posts__title">Посты</h2>
             {% for post in posts_page %}
                 {% include "includes/post_card.html" with post=post user=user csrf_token=csrf_token only %}
             {% empty %}
-                <p class="search-empty">Постов пока нет.</p>
+                <div class="empty-state">
+                    <span class="empty-state__icon">&#128062;</span>
+                    <p>У {{ pet.name }} пока нет постов.</p>
+                </div>
             {% endfor %}
             {% if posts_page.has_other_pages %}
-                <nav class="search-pagination">
-                    {% if posts_page.has_previous %}
-                        <a href="?page={{ posts_page.previous_page_number }}">← Назад</a>
-                    {% endif %}
+                <nav class="feed-pagination">
+                    {% if posts_page.has_previous %}<a href="?page={{ posts_page.previous_page_number }}"><- Назад</a>{% endif %}
                     <span>{{ posts_page.number }} / {{ posts_page.paginator.num_pages }}</span>
-                    {% if posts_page.has_next %}
-                        <a href="?page={{ posts_page.next_page_number }}">Вперёд →</a>
-                    {% endif %}
+                    {% if posts_page.has_next %}<a href="?page={{ posts_page.next_page_number }}">Вперёд -></a>{% endif %}
                 </nav>
             {% endif %}
-        </section>
-        {% subscription_button pet user %}
-        {% if can_manage %}
-            <a href="{% url 'pets:edit' pet.pk %}" class="btn-pixel">Редактировать</a>
-            <a href="{% url 'pets:delete' pet.pk %}" class="btn-pixel">Удалить</a>
-            <a href="{% url 'posts:create' pet.pk %}" class="btn-pixel">Создать пост</a>
-        {% endif %}
-    </article>
+        </div>
+    </div>
 {% endblock content %}

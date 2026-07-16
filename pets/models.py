@@ -64,6 +64,14 @@ class Pet(models.Model):
             word = "лет"
         return f"{years} {word}"
 
+    @property
+    def sex_icon(self):
+        if self.sex == self.Sex.MALE:
+            return "♂"
+        if self.sex == self.Sex.FEMALE:
+            return "♀"
+        return ""
+
     def __str__(self):
         return self.name
 
